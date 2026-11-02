@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'operation_update.dart';
@@ -9,6 +9,7 @@ part of 'operation_update.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $OperationUpdateCopyWith<OperationUpdate> get copyWith => _$OperationUpdateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OperationUpdate&&(identical(other.id, id) || other.id == id)&&(identical(other.levyDate, levyDate) || other.levyDate == levyDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.isValidate, isValidate) || other.isValidate == isValidate));
+  final _this = this as OperationUpdate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OperationUpdate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.levyDate, _this.levyDate) || other.levyDate == _this.levyDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.destination, _this.destination) || other.destination == _this.destination)&&(identical(other.costs, _this.costs) || other.costs == _this.costs)&&(identical(other.isValidate, _this.isValidate) || other.isValidate == _this.isValidate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,levyDate,label,amount,category,source,destination,costs,isValidate);
+int get hashCode {
+  final _this = this as OperationUpdate;
+  return Object.hash(runtimeType,_this.id,_this.levyDate,_this.label,_this.amount,_this.category,_this.source,_this.destination,_this.costs,_this.isValidate);
+}
 
 @override
 String toString() {
-  return 'OperationUpdate(id: $id, levyDate: $levyDate, label: $label, amount: $amount, category: $category, source: $source, destination: $destination, costs: $costs, isValidate: $isValidate)';
+  final _this = this as OperationUpdate;
+  return 'OperationUpdate(id: ${_this.id}, levyDate: ${_this.levyDate}, label: ${_this.label}, amount: ${_this.amount}, category: ${_this.category}, source: ${_this.source}, destination: ${_this.destination}, costs: ${_this.costs}, isValidate: ${_this.isValidate})';
 }
 
 
@@ -63,7 +69,7 @@ class _$OperationUpdateCopyWithImpl<$Res>
 /// Create a copy of OperationUpdate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? levyDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? isValidate = null,}) {
-  return _then(_self.copyWith(
+  return _then(OperationUpdate(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,levyDate: null == levyDate ? _self.levyDate : levyDate // ignore: cast_nullable_to_non_nullable
 as DateTime,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
@@ -237,16 +243,18 @@ _$OperationUpdateCopyWith<_OperationUpdate> get copyWith => __$OperationUpdateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OperationUpdate&&(identical(other.id, id) || other.id == id)&&(identical(other.levyDate, levyDate) || other.levyDate == levyDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.isValidate, isValidate) || other.isValidate == isValidate));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OperationUpdate&&(identical(other.id, id) || other.id == id)&&(identical(other.levyDate, levyDate) || other.levyDate == levyDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.isValidate, isValidate) || other.isValidate == isValidate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,levyDate,label,amount,category,source,destination,costs,isValidate);
+int get hashCode {
+    return Object.hash(runtimeType,id,levyDate,label,amount,category,source,destination,costs,isValidate);
+}
 
 @override
 String toString() {
-  return 'OperationUpdate(id: $id, levyDate: $levyDate, label: $label, amount: $amount, category: $category, source: $source, destination: $destination, costs: $costs, isValidate: $isValidate)';
+    return 'OperationUpdate(id: $id, levyDate: $levyDate, label: $label, amount: $amount, category: $category, source: $source, destination: $destination, costs: $costs, isValidate: $isValidate)';
 }
 
 
