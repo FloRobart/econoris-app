@@ -1,8 +1,13 @@
 build
 .dart_tool
+.flutter-plugins
+.flutter-plugins-dependencies
 packages
 .git
+.github
+.claude
+.vscode
 *.iml
 .idea
 *.log
-.env
+.env*
