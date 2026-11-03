@@ -1,7 +1,7 @@
 services:
   # Econoris App Web #
   econoris-app-web:
-    image: florobart/econoris-app-web:latest
+    image: florobart/econoris-app:latest
     restart: always
     volumes:
       - type: bind

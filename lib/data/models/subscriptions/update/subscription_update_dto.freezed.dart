@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'subscription_update_dto.dart';
@@ -9,6 +9,7 @@ part of 'subscription_update_dto.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $SubscriptionUpdateDtoCopyWith<SubscriptionUpdateDto> get copyWith => _$Subscrip
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionUpdateDto&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.active, active) || other.active == active)&&(identical(other.intervalValue, intervalValue) || other.intervalValue == intervalValue)&&(identical(other.intervalUnit, intervalUnit) || other.intervalUnit == intervalUnit)&&(identical(other.dayOfMonth, dayOfMonth) || other.dayOfMonth == dayOfMonth));
+  final _this = this as SubscriptionUpdateDto;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionUpdateDto&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.startDate, _this.startDate) || other.startDate == _this.startDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.destination, _this.destination) || other.destination == _this.destination)&&(identical(other.costs, _this.costs) || other.costs == _this.costs)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.intervalValue, _this.intervalValue) || other.intervalValue == _this.intervalValue)&&(identical(other.intervalUnit, _this.intervalUnit) || other.intervalUnit == _this.intervalUnit)&&(identical(other.dayOfMonth, _this.dayOfMonth) || other.dayOfMonth == _this.dayOfMonth));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,startDate,label,amount,category,source,destination,costs,active,intervalValue,intervalUnit,dayOfMonth);
+int get hashCode {
+  final _this = this as SubscriptionUpdateDto;
+  return Object.hash(runtimeType,_this.id,_this.startDate,_this.label,_this.amount,_this.category,_this.source,_this.destination,_this.costs,_this.active,_this.intervalValue,_this.intervalUnit,_this.dayOfMonth);
+}
 
 @override
 String toString() {
-  return 'SubscriptionUpdateDto(id: $id, startDate: $startDate, label: $label, amount: $amount, category: $category, source: $source, destination: $destination, costs: $costs, active: $active, intervalValue: $intervalValue, intervalUnit: $intervalUnit, dayOfMonth: $dayOfMonth)';
+  final _this = this as SubscriptionUpdateDto;
+  return 'SubscriptionUpdateDto(id: ${_this.id}, startDate: ${_this.startDate}, label: ${_this.label}, amount: ${_this.amount}, category: ${_this.category}, source: ${_this.source}, destination: ${_this.destination}, costs: ${_this.costs}, active: ${_this.active}, intervalValue: ${_this.intervalValue}, intervalUnit: ${_this.intervalUnit}, dayOfMonth: ${_this.dayOfMonth})';
 }
 
 
@@ -66,7 +72,7 @@ class _$SubscriptionUpdateDtoCopyWithImpl<$Res>
 /// Create a copy of SubscriptionUpdateDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? active = null,Object? intervalValue = null,Object? intervalUnit = null,Object? dayOfMonth = null,}) {
-  return _then(_self.copyWith(
+  return _then(SubscriptionUpdateDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
@@ -249,16 +255,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionUpdateDto&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.active, active) || other.active == active)&&(identical(other.intervalValue, intervalValue) || other.intervalValue == intervalValue)&&(identical(other.intervalUnit, intervalUnit) || other.intervalUnit == intervalUnit)&&(identical(other.dayOfMonth, dayOfMonth) || other.dayOfMonth == dayOfMonth));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionUpdateDto&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.active, active) || other.active == active)&&(identical(other.intervalValue, intervalValue) || other.intervalValue == intervalValue)&&(identical(other.intervalUnit, intervalUnit) || other.intervalUnit == intervalUnit)&&(identical(other.dayOfMonth, dayOfMonth) || other.dayOfMonth == dayOfMonth));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,startDate,label,amount,category,source,destination,costs,active,intervalValue,intervalUnit,dayOfMonth);
+int get hashCode {
+    return Object.hash(runtimeType,id,startDate,label,amount,category,source,destination,costs,active,intervalValue,intervalUnit,dayOfMonth);
+}
 
 @override
 String toString() {
-  return 'SubscriptionUpdateDto(id: $id, startDate: $startDate, label: $label, amount: $amount, category: $category, source: $source, destination: $destination, costs: $costs, active: $active, intervalValue: $intervalValue, intervalUnit: $intervalUnit, dayOfMonth: $dayOfMonth)';
+    return 'SubscriptionUpdateDto(id: $id, startDate: $startDate, label: $label, amount: $amount, category: $category, source: $source, destination: $destination, costs: $costs, active: $active, intervalValue: $intervalValue, intervalUnit: $intervalUnit, dayOfMonth: $dayOfMonth)';
 }
 
 

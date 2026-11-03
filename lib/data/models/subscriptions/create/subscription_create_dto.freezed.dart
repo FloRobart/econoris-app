@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'subscription_create_dto.dart';
@@ -9,6 +9,7 @@ part of 'subscription_create_dto.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $SubscriptionCreateDtoCopyWith<SubscriptionCreateDto> get copyWith => _$Subscrip
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionCreateDto&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.active, active) || other.active == active)&&(identical(other.intervalValue, intervalValue) || other.intervalValue == intervalValue)&&(identical(other.intervalUnit, intervalUnit) || other.intervalUnit == intervalUnit)&&(identical(other.dayOfMonth, dayOfMonth) || other.dayOfMonth == dayOfMonth));
+  final _this = this as SubscriptionCreateDto;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionCreateDto&&(identical(other.startDate, _this.startDate) || other.startDate == _this.startDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.intervalValue, _this.intervalValue) || other.intervalValue == _this.intervalValue)&&(identical(other.intervalUnit, _this.intervalUnit) || other.intervalUnit == _this.intervalUnit)&&(identical(other.dayOfMonth, _this.dayOfMonth) || other.dayOfMonth == _this.dayOfMonth));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,startDate,label,amount,category,active,intervalValue,intervalUnit,dayOfMonth);
+int get hashCode {
+  final _this = this as SubscriptionCreateDto;
+  return Object.hash(runtimeType,_this.startDate,_this.label,_this.amount,_this.category,_this.active,_this.intervalValue,_this.intervalUnit,_this.dayOfMonth);
+}
 
 @override
 String toString() {
-  return 'SubscriptionCreateDto(startDate: $startDate, label: $label, amount: $amount, category: $category, active: $active, intervalValue: $intervalValue, intervalUnit: $intervalUnit, dayOfMonth: $dayOfMonth)';
+  final _this = this as SubscriptionCreateDto;
+  return 'SubscriptionCreateDto(startDate: ${_this.startDate}, label: ${_this.label}, amount: ${_this.amount}, category: ${_this.category}, active: ${_this.active}, intervalValue: ${_this.intervalValue}, intervalUnit: ${_this.intervalUnit}, dayOfMonth: ${_this.dayOfMonth})';
 }
 
 
@@ -66,7 +72,7 @@ class _$SubscriptionCreateDtoCopyWithImpl<$Res>
 /// Create a copy of SubscriptionCreateDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? startDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? active = null,Object? intervalValue = null,Object? intervalUnit = null,Object? dayOfMonth = null,}) {
-  return _then(_self.copyWith(
+  return _then(SubscriptionCreateDto(
 startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
@@ -241,16 +247,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionCreateDto&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.active, active) || other.active == active)&&(identical(other.intervalValue, intervalValue) || other.intervalValue == intervalValue)&&(identical(other.intervalUnit, intervalUnit) || other.intervalUnit == intervalUnit)&&(identical(other.dayOfMonth, dayOfMonth) || other.dayOfMonth == dayOfMonth));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionCreateDto&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.active, active) || other.active == active)&&(identical(other.intervalValue, intervalValue) || other.intervalValue == intervalValue)&&(identical(other.intervalUnit, intervalUnit) || other.intervalUnit == intervalUnit)&&(identical(other.dayOfMonth, dayOfMonth) || other.dayOfMonth == dayOfMonth));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,startDate,label,amount,category,active,intervalValue,intervalUnit,dayOfMonth);
+int get hashCode {
+    return Object.hash(runtimeType,startDate,label,amount,category,active,intervalValue,intervalUnit,dayOfMonth);
+}
 
 @override
 String toString() {
-  return 'SubscriptionCreateDto(startDate: $startDate, label: $label, amount: $amount, category: $category, active: $active, intervalValue: $intervalValue, intervalUnit: $intervalUnit, dayOfMonth: $dayOfMonth)';
+    return 'SubscriptionCreateDto(startDate: $startDate, label: $label, amount: $amount, category: $category, active: $active, intervalValue: $intervalValue, intervalUnit: $intervalUnit, dayOfMonth: $dayOfMonth)';
 }
 
 
