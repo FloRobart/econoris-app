@@ -27,7 +27,7 @@ enum HttpMethod { get, post, put, delete }
 
 /// A simple API client that wraps http requests. This is a very basic implementation and can be extended with features like error handling, logging, etc.
 class ApiClient {
-  const ApiClient({required Dio dio}) : _dio = dio;
+  const ApiClient({required this._dio});
 
   final Dio _dio;
 
