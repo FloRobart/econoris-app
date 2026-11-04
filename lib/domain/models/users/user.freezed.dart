@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user.dart';
@@ -9,6 +9,7 @@ part of 'user.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $UserCopyWith<User> get copyWith => _$UserCopyWithImpl<User>(this as User, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.email, email) || other.email == email)&&(identical(other.pseudo, pseudo) || other.pseudo == pseudo)&&(identical(other.isConnected, isConnected) || other.isConnected == isConnected)&&(identical(other.isVerifiedEmail, isVerifiedEmail) || other.isVerifiedEmail == isVerifiedEmail)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  final _this = this as User;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.pseudo, _this.pseudo) || other.pseudo == _this.pseudo)&&(identical(other.isConnected, _this.isConnected) || other.isConnected == _this.isConnected)&&(identical(other.isVerifiedEmail, _this.isVerifiedEmail) || other.isVerifiedEmail == _this.isVerifiedEmail)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,pseudo,isConnected,isVerifiedEmail,createdAt);
+int get hashCode {
+  final _this = this as User;
+  return Object.hash(runtimeType,_this.email,_this.pseudo,_this.isConnected,_this.isVerifiedEmail,_this.createdAt);
+}
 
 @override
 String toString() {
-  return 'User(email: $email, pseudo: $pseudo, isConnected: $isConnected, isVerifiedEmail: $isVerifiedEmail, createdAt: $createdAt)';
+  final _this = this as User;
+  return 'User(email: ${_this.email}, pseudo: ${_this.pseudo}, isConnected: ${_this.isConnected}, isVerifiedEmail: ${_this.isVerifiedEmail}, createdAt: ${_this.createdAt})';
 }
 
 
@@ -63,7 +69,7 @@ class _$UserCopyWithImpl<$Res>
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? pseudo = null,Object? isConnected = null,Object? isVerifiedEmail = null,Object? createdAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(User(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,pseudo: null == pseudo ? _self.pseudo : pseudo // ignore: cast_nullable_to_non_nullable
 as String,isConnected: null == isConnected ? _self.isConnected : isConnected // ignore: cast_nullable_to_non_nullable
@@ -229,16 +235,18 @@ _$UserCopyWith<_User> get copyWith => __$UserCopyWithImpl<_User>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.email, email) || other.email == email)&&(identical(other.pseudo, pseudo) || other.pseudo == pseudo)&&(identical(other.isConnected, isConnected) || other.isConnected == isConnected)&&(identical(other.isVerifiedEmail, isVerifiedEmail) || other.isVerifiedEmail == isVerifiedEmail)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.email, email) || other.email == email)&&(identical(other.pseudo, pseudo) || other.pseudo == pseudo)&&(identical(other.isConnected, isConnected) || other.isConnected == isConnected)&&(identical(other.isVerifiedEmail, isVerifiedEmail) || other.isVerifiedEmail == isVerifiedEmail)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,pseudo,isConnected,isVerifiedEmail,createdAt);
+int get hashCode {
+    return Object.hash(runtimeType,email,pseudo,isConnected,isVerifiedEmail,createdAt);
+}
 
 @override
 String toString() {
-  return 'User(email: $email, pseudo: $pseudo, isConnected: $isConnected, isVerifiedEmail: $isVerifiedEmail, createdAt: $createdAt)';
+    return 'User(email: $email, pseudo: $pseudo, isConnected: $isConnected, isVerifiedEmail: $isVerifiedEmail, createdAt: $createdAt)';
 }
 
 

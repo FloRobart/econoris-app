@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user_dto.dart';
@@ -9,6 +9,7 @@ part of 'user_dto.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $UserDtoCopyWith<UserDto> get copyWith => _$UserDtoCopyWithImpl<UserDto>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserDto&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.pseudo, pseudo) || other.pseudo == pseudo)&&(identical(other.authMethodsId, authMethodsId) || other.authMethodsId == authMethodsId)&&(identical(other.isConnected, isConnected) || other.isConnected == isConnected)&&(identical(other.isVerifiedEmail, isVerifiedEmail) || other.isVerifiedEmail == isVerifiedEmail)&&(identical(other.lastLogoutAt, lastLogoutAt) || other.lastLogoutAt == lastLogoutAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  final _this = this as UserDto;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserDto&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.email, _this.email) || other.email == _this.email)&&(identical(other.pseudo, _this.pseudo) || other.pseudo == _this.pseudo)&&(identical(other.authMethodsId, _this.authMethodsId) || other.authMethodsId == _this.authMethodsId)&&(identical(other.isConnected, _this.isConnected) || other.isConnected == _this.isConnected)&&(identical(other.isVerifiedEmail, _this.isVerifiedEmail) || other.isVerifiedEmail == _this.isVerifiedEmail)&&(identical(other.lastLogoutAt, _this.lastLogoutAt) || other.lastLogoutAt == _this.lastLogoutAt)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,email,pseudo,authMethodsId,isConnected,isVerifiedEmail,lastLogoutAt,createdAt);
+int get hashCode {
+  final _this = this as UserDto;
+  return Object.hash(runtimeType,_this.id,_this.email,_this.pseudo,_this.authMethodsId,_this.isConnected,_this.isVerifiedEmail,_this.lastLogoutAt,_this.createdAt);
+}
 
 @override
 String toString() {
-  return 'UserDto(id: $id, email: $email, pseudo: $pseudo, authMethodsId: $authMethodsId, isConnected: $isConnected, isVerifiedEmail: $isVerifiedEmail, lastLogoutAt: $lastLogoutAt, createdAt: $createdAt)';
+  final _this = this as UserDto;
+  return 'UserDto(id: ${_this.id}, email: ${_this.email}, pseudo: ${_this.pseudo}, authMethodsId: ${_this.authMethodsId}, isConnected: ${_this.isConnected}, isVerifiedEmail: ${_this.isVerifiedEmail}, lastLogoutAt: ${_this.lastLogoutAt}, createdAt: ${_this.createdAt})';
 }
 
 
@@ -66,7 +72,7 @@ class _$UserDtoCopyWithImpl<$Res>
 /// Create a copy of UserDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = null,Object? pseudo = null,Object? authMethodsId = null,Object? isConnected = null,Object? isVerifiedEmail = null,Object? lastLogoutAt = null,Object? createdAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(UserDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,pseudo: null == pseudo ? _self.pseudo : pseudo // ignore: cast_nullable_to_non_nullable
@@ -241,16 +247,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserDto&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.pseudo, pseudo) || other.pseudo == pseudo)&&(identical(other.authMethodsId, authMethodsId) || other.authMethodsId == authMethodsId)&&(identical(other.isConnected, isConnected) || other.isConnected == isConnected)&&(identical(other.isVerifiedEmail, isVerifiedEmail) || other.isVerifiedEmail == isVerifiedEmail)&&(identical(other.lastLogoutAt, lastLogoutAt) || other.lastLogoutAt == lastLogoutAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserDto&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.pseudo, pseudo) || other.pseudo == pseudo)&&(identical(other.authMethodsId, authMethodsId) || other.authMethodsId == authMethodsId)&&(identical(other.isConnected, isConnected) || other.isConnected == isConnected)&&(identical(other.isVerifiedEmail, isVerifiedEmail) || other.isVerifiedEmail == isVerifiedEmail)&&(identical(other.lastLogoutAt, lastLogoutAt) || other.lastLogoutAt == lastLogoutAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,email,pseudo,authMethodsId,isConnected,isVerifiedEmail,lastLogoutAt,createdAt);
+int get hashCode {
+    return Object.hash(runtimeType,id,email,pseudo,authMethodsId,isConnected,isVerifiedEmail,lastLogoutAt,createdAt);
+}
 
 @override
 String toString() {
-  return 'UserDto(id: $id, email: $email, pseudo: $pseudo, authMethodsId: $authMethodsId, isConnected: $isConnected, isVerifiedEmail: $isVerifiedEmail, lastLogoutAt: $lastLogoutAt, createdAt: $createdAt)';
+    return 'UserDto(id: $id, email: $email, pseudo: $pseudo, authMethodsId: $authMethodsId, isConnected: $isConnected, isVerifiedEmail: $isVerifiedEmail, lastLogoutAt: $lastLogoutAt, createdAt: $createdAt)';
 }
 
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'subscription_create.dart';
@@ -9,6 +9,7 @@ part of 'subscription_create.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $SubscriptionCreateCopyWith<SubscriptionCreate> get copyWith => _$SubscriptionCr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionCreate&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.recurrence, recurrence) || other.recurrence == recurrence)&&(identical(other.active, active) || other.active == active));
+  final _this = this as SubscriptionCreate;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionCreate&&(identical(other.startDate, _this.startDate) || other.startDate == _this.startDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.recurrence, _this.recurrence) || other.recurrence == _this.recurrence)&&(identical(other.active, _this.active) || other.active == _this.active));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,startDate,label,amount,category,recurrence,active);
+int get hashCode {
+  final _this = this as SubscriptionCreate;
+  return Object.hash(runtimeType,_this.startDate,_this.label,_this.amount,_this.category,_this.recurrence,_this.active);
+}
 
 @override
 String toString() {
-  return 'SubscriptionCreate(startDate: $startDate, label: $label, amount: $amount, category: $category, recurrence: $recurrence, active: $active)';
+  final _this = this as SubscriptionCreate;
+  return 'SubscriptionCreate(startDate: ${_this.startDate}, label: ${_this.label}, amount: ${_this.amount}, category: ${_this.category}, recurrence: ${_this.recurrence}, active: ${_this.active})';
 }
 
 
@@ -63,7 +69,7 @@ class _$SubscriptionCreateCopyWithImpl<$Res>
 /// Create a copy of SubscriptionCreate
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? startDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? recurrence = null,Object? active = null,}) {
-  return _then(_self.copyWith(
+  return _then(SubscriptionCreate(
 startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ _$SubscriptionCreateCopyWith<_SubscriptionCreate> get copyWith => __$Subscriptio
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionCreate&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.recurrence, recurrence) || other.recurrence == recurrence)&&(identical(other.active, active) || other.active == active));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionCreate&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.recurrence, recurrence) || other.recurrence == recurrence)&&(identical(other.active, active) || other.active == active));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,startDate,label,amount,category,recurrence,active);
+int get hashCode {
+    return Object.hash(runtimeType,startDate,label,amount,category,recurrence,active);
+}
 
 @override
 String toString() {
-  return 'SubscriptionCreate(startDate: $startDate, label: $label, amount: $amount, category: $category, recurrence: $recurrence, active: $active)';
+    return 'SubscriptionCreate(startDate: $startDate, label: $label, amount: $amount, category: $category, recurrence: $recurrence, active: $active)';
 }
 
 
