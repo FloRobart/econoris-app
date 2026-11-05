@@ -1,14 +1,18 @@
-ARG DEBIAN_IMAGE=debian:bookworm-slim@sha256:99c0b25c46d0214d5a2091092e7908907dcaecd6a962cde0ac700acee222b6f3
+# Production image of the Econoris web application.
+# Base images are pinned by digest so that a compromised tag cannot silently change the build.
+# Pulling from dhi.io requires "docker login dhi.io" with a Docker Hub account.
+
+ARG BUILD_BASE_IMAGE=dhi.io/debian-base:bookworm-dev@sha256:358587de16e65b34ebdfb8911b32fc16f71133dcab493af6405d8147e9d73c74
 
 # Step 1: Extract the Flutter version declared in pubspec.yaml
 # This stage is isolated so that bumping "version:" in pubspec.yaml keeps the Flutter layers cached
-FROM ${DEBIAN_IMAGE} AS flutter-version
+FROM ${BUILD_BASE_IMAGE} AS flutter-version
 COPY pubspec.yaml /pubspec.yaml
 RUN sed -n "/^environment:/,/^[^ ]/ s/^  flutter: *[\"']\{0,1\}\([0-9][0-9.]*\)[\"']\{0,1\} *\(#.*\)\{0,1\}$/\1/p" /pubspec.yaml > /flutter-version \
     && test -s /flutter-version
 
 # Step 2: Build the Flutter web application
-FROM ${DEBIAN_IMAGE} AS builder
+FROM ${BUILD_BASE_IMAGE} AS builder
 
 ENV CI=true \
     FLUTTER_SUPPRESS_ANALYTICS=true \
@@ -18,35 +22,36 @@ ENV CI=true \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git curl unzip xz-utils ca-certificates
 
+# Packages run their own code during the build: they must not run it as root
+RUN install -d -o nonroot -g nonroot /flutter /application
+USER nonroot
+ENV HOME=/home/nonroot
+
 # Install the exact Flutter version declared in pubspec.yaml
 COPY --from=flutter-version /flutter-version /flutter-version
 RUN git clone --branch "$(cat /flutter-version)" --depth 1 https://github.com/flutter/flutter.git /flutter \
     && flutter precache --web
 
-WORKDIR /app
+WORKDIR /application
 
 # Copy dependency manifests first so source changes keep the dependency cache
-COPY pubspec.yaml pubspec.lock ./
+COPY --chown=nonroot:nonroot pubspec.yaml pubspec.lock ./
 RUN flutter pub get --enforce-lockfile
 
-COPY . .
-RUN flutter build web --release
+# Only what the web build needs: anything else in the repository stays out of the image
+COPY --chown=nonroot:nonroot assets ./assets
+COPY --chown=nonroot:nonroot lib ./lib
+COPY --chown=nonroot:nonroot web ./web
+
+# Without a CDN, the application only runs scripts it serves itself, which allows a strict CSP
+RUN flutter build web --release --no-web-resources-cdn
 
 # Step 3: Final image served by nginx
-FROM nginx:1.30.6-alpine3.24@sha256:0e52bd054126cdc040b1276c0af347aeb02a41b9cfe305d6094767ac30e97949
+# The Debian variant is preferred to the Alpine one because it contains neither a shell nor wget
+FROM dhi.io/nginx:1.30-debian13@sha256:30510655d924e2e36dd69815d852f2df43868c83007be3353ec0bb8f5e7b3ab0
 
-# Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
+# Owned by root: the unprivileged nginx process can read these files but not change them
+COPY --from=builder --chown=0:0 /application/build/web /usr/share/nginx/html
+COPY --chown=0:0 nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy the Flutter web build
-COPY --from=builder /app/build/web /usr/share/nginx/html
-
-# Custom nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Add a non-root user with fixed UID/GID
-RUN addgroup -g 1800 -S econorisgroup && adduser -u 1800 -S econorisuser -G econorisgroup \
-    && mkdir -p /run/nginx /var/cache/nginx /var/run /var/log/nginx \
-    && chown -R econorisuser:econorisgroup /var/cache/nginx /var/run /var/log/nginx /run/nginx \
-    && chmod 0755 /run/nginx
-USER econorisuser
+USER 65532:65532

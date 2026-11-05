@@ -33,3 +33,7 @@ flutter build apk --dart-define-from-file=.env
 
 Le fichier `.env` est lu au demarrage (requete sur `/assets/.env`) et permet de
 changer les URLs sans recompiler le code Dart.
+
+En production, le navigateur ne peut appeler que les adresses listees dans le
+`connect-src` de `nginx.conf`. Une nouvelle adresse doit donc aussi y etre ajoutee,
+puis publiee avec une nouvelle image. En local, `http://localhost` est toujours autorise.
