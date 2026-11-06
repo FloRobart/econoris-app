@@ -6,6 +6,7 @@ import 'package:econoris_app/ui/home/widgets/home_screen.dart';
 import 'package:econoris_app/ui/operations/widgets/operation_screen.dart';
 import 'package:econoris_app/ui/profile/widgets/profile_screen.dart';
 import 'package:econoris_app/ui/subscriptions/widgets/subscription_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,7 +16,8 @@ final routerProvider = Provider<GoRouter>((ref) {
 
   return GoRouter(
     initialLocation: AppRoutes.home,
-    debugLogDiagnostics: true,
+    /* Debug builds only: a release would log every page visited in the console */
+    debugLogDiagnostics: kDebugMode,
     onException: (context, state, router) {
       router.go(AppRoutes.home);
     },

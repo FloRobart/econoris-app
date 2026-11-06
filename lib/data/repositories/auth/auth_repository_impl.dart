@@ -40,6 +40,9 @@ class AuthRepositoryImpl implements AuthRepository {
       final String jwt = await remote.confirmLoginCode(email, token, secret);
       await globalAuthNotifier.setAuthenticated(jwt);
 
+      /* Useless once the user is logged in. It is kept after a wrong code, so that the user can try again */
+      await local.deleteLoginToken();
+
       return true;
     } catch (_) {
       throw Exception('Failed to confirm login code');

@@ -1,5 +1,4 @@
 import 'package:econoris_app/data/repositories/users/user_repository_impl.dart';
-import 'package:econoris_app/data/repositories/users/user_repository_local.dart';
 import 'package:econoris_app/data/repositories/users/user_repository_remote.dart';
 import 'package:econoris_app/data/services/api/users/user_api_client.dart';
 import 'package:econoris_app/data/services/auth/auth_manager.dart';
@@ -12,11 +11,9 @@ final userRepositoryProvider = Provider<UserRepository>((ref) {
     userApiClient: ref.read(userApiClientProvider),
     authManager: ref.read(authNotifierProvider.notifier),
   );
-  final local = UserRepositoryLocal();
 
   return UserRepositoryImpl(
     remote: remote,
-    local: local,
     authNotifier: ref.read(authNotifierProvider.notifier),
   );
 });
