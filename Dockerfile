@@ -1,18 +1,20 @@
 # Production image of the Econoris web application.
 # Base images are pinned by digest so that a compromised tag cannot silently change the build.
 # Pulling from dhi.io requires "docker login dhi.io" with a Docker Hub account.
-
-ARG BUILD_BASE_IMAGE=dhi.io/debian-base:bookworm-dev@sha256:358587de16e65b34ebdfb8911b32fc16f71133dcab493af6405d8147e9d73c74
+#
+# Every FROM line names its image in full, without ARG: Dependabot does not read images
+# declared through ARG, and it updates identical FROM lines together in the same pull request.
 
 # Step 1: Extract the Flutter version declared in pubspec.yaml
 # This stage is isolated so that bumping "version:" in pubspec.yaml keeps the Flutter layers cached
-FROM ${BUILD_BASE_IMAGE} AS flutter-version
+FROM dhi.io/debian-base:trixie-dev@sha256:61025cea33d5910165ced8b33edd3f6b6bfe161e129174887936a1b9a1442b20 AS flutter-version
 COPY pubspec.yaml /pubspec.yaml
 RUN sed -n "/^environment:/,/^[^ ]/ s/^  flutter: *[\"']\{0,1\}\([0-9][0-9.]*\)[\"']\{0,1\} *\(#.*\)\{0,1\}$/\1/p" /pubspec.yaml > /flutter-version \
     && test -s /flutter-version
 
 # Step 2: Build the Flutter web application
-FROM ${BUILD_BASE_IMAGE} AS builder
+# Same base image as step 1
+FROM dhi.io/debian-base:trixie-dev@sha256:61025cea33d5910165ced8b33edd3f6b6bfe161e129174887936a1b9a1442b20 AS builder
 
 ENV CI=true \
     FLUTTER_SUPPRESS_ANALYTICS=true \
