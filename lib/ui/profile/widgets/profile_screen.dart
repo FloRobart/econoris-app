@@ -96,14 +96,33 @@ class ProfileScreen extends ConsumerWidget {
           },
 
           error: (error, stackTrace) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  'Impossible de charger votre profil.',
-                  style: theme.textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Sélecteur de thème
+                  const ThemeSection(),
+
+                  const SizedBox(height: 12),
+
+                  Center(
+                    child: Text(
+                      'Impossible de charger votre profil.',
+                      style: theme.textTheme.bodyMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  /* Kept without the profile: a session refused by the server must not keep
+                     the user from logging out */
+                  LogoutSection(
+                    onLogout: viewModel.logout,
+                    onLogoutAll: viewModel.logoutAll,
+                  ),
+                ],
               ),
             );
           },

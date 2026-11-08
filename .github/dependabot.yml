@@ -1,0 +1,51 @@
+version: 2
+
+# Docker Hardened Images (dhi.io) refuse anonymous pulls. Dependabot cannot read the Actions
+# secrets: DOCKERHUB_USERNAME and DOCKERHUB_TOKEN must also exist in
+# Settings > Secrets and variables > Dependabot.
+registries:
+  docker-hardened-images:
+    type: docker-registry
+    url: dhi.io
+    username: ${{secrets.DOCKERHUB_USERNAME}}
+    password: ${{secrets.DOCKERHUB_TOKEN}}
+
+updates:
+  # Dart and Flutter packages of pubspec.yaml
+  - package-ecosystem: "pub"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    target-branch: dev
+    commit-message:
+      prefix: "chore(deps)"
+    # Wait before adopting a new release, to limit the risk of compromised packages
+    cooldown:
+      default-days: 7
+    # One pull request for all the minor and patch updates. Every major update gets its own
+    # pull request, so that a breaking one does not block the others
+    groups:
+      pub-minor-and-patch-updates:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Base images of the Dockerfile, in pull requests separated from the pub ones
+  - package-ecosystem: "docker"
+    directory: "/"
+    registries:
+      - docker-hardened-images
+    schedule:
+      interval: "monthly"
+    target-branch: dev
+    commit-message:
+      prefix: "chore(deps)"
+    # Wait before adopting a new image, to limit the risk of compromised images
+    cooldown:
+      default-days: 7
+    # Same split as pub: minor and patch updates together, every major update on its own
+    groups:
+      docker-minor-and-patch-updates:
+        update-types:
+          - "minor"
+          - "patch"

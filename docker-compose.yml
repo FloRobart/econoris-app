@@ -1,8 +1,40 @@
+# Production only: the application is exclusively reachable through Traefik, no port is published.
+
 services:
-  # Econoris App Web #
-  econoris-app-web:
-    image: florobart/econoris-app:latest
+  econoris-app:
+    image: florobart/econoris-app:${APP_VERSION:-latest}
     restart: always
+
+    # No Docker healthcheck: the image has no shell nor HTTP client.
+    # Traefik checks the application over HTTP instead (dynamic/routes.yml of econoris-proxy).
+
+    # Least privileges
+    user: "65532:65532"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    ipc: none
+
+    # Resource limits, so that this container cannot starve the other ones of the host
+    mem_limit: 128m
+    memswap_limit: 128m
+    cpus: 0.5
+    pids_limit: 64
+
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+    # The only writable paths nginx needs: not executable, and limited in size
+    tmpfs:
+      - /run/nginx:size=64k,mode=0700,uid=65532,gid=65532,noexec,nosuid,nodev
+      - /var/cache/nginx:size=1m,mode=0700,uid=65532,gid=65532,noexec,nosuid,nodev
+
+    # This file is public: it must never contain a secret
     volumes:
       - type: bind
         source: ./.env
@@ -10,37 +42,12 @@ services:
         read_only: true
         bind:
           create_host_path: false
+
     networks:
-      - flower-garden-net
-    ports:
-      - ${APP_PORT:-}:80
-    security_opt:
-      - no-new-privileges:true
-    cap_drop:
-      - ALL
-    cap_add:
-      - NET_BIND_SERVICE
-      - CHOWN
-      - SETGID
-      - SETUID
-    read_only: true
-    user: "1800:1800"
-    tmpfs:
-      - /tmp:exec,nosuid,nodev,uid=1800,gid=1800
-      - /run:rw,mode=0755,uid=1800,gid=1800
-      - /run/nginx:rw,mode=0755,uid=1800,gid=1800
-      - /var/cache/nginx:rw,uid=1800,gid=1800
-      - /var/cache/nginx/client_temp:rw,uid=1800,gid=1800
-      - /var/cache/nginx/proxy_temp:rw,uid=1800,gid=1800
-      - /var/cache/nginx/fastcgi_temp:rw,uid=1800,gid=1800
-      - /var/cache/nginx/uwsgi_temp:rw,uid=1800,gid=1800
-      - /var/cache/nginx/scgi_temp:rw,uid=1800,gid=1800
-    healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider http://econoris-app-web:80/ || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - econoris-app-net
 
 networks:
-  flower-garden-net:
-    external: true
+  # No access to the outside: this container only serves static files to Traefik
+  econoris-app-net:
+    name: econoris-app-net
+    internal: true

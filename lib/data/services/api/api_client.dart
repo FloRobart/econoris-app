@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:econoris_app/data/services/auth/auth_manager.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:econoris_app/config/app_config.dart';
 import 'package:econoris_app/data/services/interceptors/auth_interceptor.dart';
@@ -12,7 +13,12 @@ final dioProvider = Provider<Dio>((ref) {
   dio.interceptors.add(
     AuthInterceptor(authNotifier: ref.read(authNotifierProvider.notifier)),
   );
-  dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+
+  /* Debug builds only: in a release, these logs would show the JWT, the login codes and
+     every amount of the user in the console of the browser */
+  if (kDebugMode) {
+    dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+  }
 
   return dio;
 });
