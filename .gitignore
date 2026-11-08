@@ -3,6 +3,9 @@
 !.env.example
 .prompt*
 
+# Local settings of Claude Code
+.claude/
+
 # Miscellaneous
 *.class
 *.log

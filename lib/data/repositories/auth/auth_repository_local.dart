@@ -29,4 +29,10 @@ class AuthRepositoryLocal {
     final sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString(SharedPreferencesKeys.loginToken);
   }
+
+  /// Delete the login token from local storage, once it has been used to log in.
+  Future<void> deleteLoginToken() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.remove(SharedPreferencesKeys.loginToken);
+  }
 }
