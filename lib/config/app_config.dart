@@ -5,9 +5,14 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 /// Centralizes authentication endpoints used by the application.
 abstract class CompiledAppConfig {
-  static const String fallbackAppName = 'Econoris2';
-  static const String fallbackAuthUrl = 'http://localhost:26001';
-  static const String fallbackDataUrl = 'http://localhost:26002';
+  /*
+   * Production values: the Android release is built without any --dart-define, by the CI as by
+   * F-Droid, which rebuilds it from the source code. A local build targets the local services
+   * with `--dart-define-from-file=.env`, and the web image with the `.env` file it serves.
+   */
+  static const String fallbackAppName = 'Econoris';
+  static const String fallbackAuthUrl = 'https://api.floraccess.florobart.fr';
+  static const String fallbackDataUrl = 'https://api.econoris.fr';
   static const String fallbackLocalization = 'fr_FR';
 
   static const String appName = String.fromEnvironment(

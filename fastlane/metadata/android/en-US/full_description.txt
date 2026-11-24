@@ -1,0 +1,14 @@
+Econoris answers a single question, the one that really matters: how much can I still spend this month?
+
+• Left to spend: all your income of the month, minus all your expenses, including the ones that have not happened yet. The amount shown is really available.
+• A financial month that follows your salary: your budget starts when your pay arrives, not on the 1st of the month.
+• Upcoming operations: a planned purchase or bill is already deducted from what you have left to spend.
+• Subscriptions: entered once with their recurrence (monthly, quarterly, half-yearly or yearly), with their total monthly cost.
+• Money management index: a single figure to judge your month, without penalizing savings.
+• More than 50 ready-to-use categories, light or dark theme.
+
+Sign-in needs no password: a one-time code is sent by email. Your data is stored on the Econoris servers, so you find it again in the web application (app.econoris.fr) and in the browser extension.
+
+Free, without ads, under the GPL-3.0 free license.
+
+The interface is in French, and the amounts in euros.

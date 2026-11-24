@@ -1,0 +1,12 @@
+Econoris répond à une seule question, celle qui compte vraiment : combien puis-je encore dépenser ce mois-ci ?
+
+• Reste à dépenser : tous vos revenus du mois, moins toutes vos dépenses, y compris celles qui n'ont pas encore eu lieu. Le montant affiché est réellement disponible.
+• Mois financier calé sur votre salaire : votre budget commence quand votre paie arrive, pas le 1er du mois.
+• Opérations à venir : un achat ou une facture planifiés sont déjà déduits de votre reste à dépenser.
+• Abonnements : enregistrés une seule fois avec leur récurrence (mensuelle, trimestrielle, semestrielle ou annuelle), avec leur coût mensuel total.
+• Indice de gestion d'argent : un seul chiffre pour juger votre mois, sans pénaliser l'épargne.
+• Plus de 50 catégories prêtes à l'emploi, thème clair ou sombre.
+
+La connexion se fait sans mot de passe, avec un code à usage unique reçu par email. Vos données sont enregistrées sur les serveurs d'Econoris : vous les retrouvez sur l'application web (app.econoris.fr) et dans l'extension de navigateur.
+
+Gratuit, sans publicité, sous licence libre GPL-3.0.
