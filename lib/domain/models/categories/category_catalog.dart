@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:econoris_app/domain/models/categories/category.dart';
 import 'package:econoris_app/utils/search_text.dart';
 
@@ -66,6 +68,7 @@ class CategoryCatalog {
   /// "logement" finds "Logement" then all its sub-categories, "essence" finds "Carburant et recharge".
   /// The best results come first: the labels that start with the query, then the other own matches,
   /// then the matches through the parent.
+  /// When nothing matches, the search tolerates typos: "esence" still finds "Carburant et recharge".
   List<Category> search(String query) {
     final normalizedQuery = normalizeForSearch(query);
     if (normalizedQuery.isEmpty) {
@@ -73,10 +76,27 @@ class CategoryCatalog {
     }
 
     final queryWords = normalizedQuery.split(' ');
+    final exactMatches = _rankedCategories(
+      (searchEntry) => searchEntry.rankFor(normalizedQuery, queryWords),
+    );
+    if (exactMatches.isNotEmpty) {
+      return exactMatches;
+    }
+
+    /* Only as a fallback: with typos allowed, a correct query would also bring many unrelated categories */
+    return _rankedCategories(
+      (searchEntry) => searchEntry.typoRankFor(queryWords),
+    );
+  }
+
+  /// The categories that get a rank, the best rank first, in display order for a same rank.
+  List<Category> _rankedCategories(
+    int? Function(_CategorySearchEntry searchEntry) rankOfEntry,
+  ) {
     final matches = <({Category category, int rank, int displayOrder})>[];
 
     for (final (displayOrder, searchEntry) in _searchEntries.indexed) {
-      final rank = searchEntry.rankFor(normalizedQuery, queryWords);
+      final rank = rankOfEntry(searchEntry);
       if (rank == null) {
         continue;
       }
@@ -104,7 +124,9 @@ class CategoryCatalog {
   /// Registers a category and its sub-categories, at any depth.
   void _register(Category category, {required Category? parent}) {
     _categoriesById[category.id] = category;
-    _searchEntries.add(_CategorySearchEntry(category: category, parent: parent));
+    _searchEntries.add(
+      _CategorySearchEntry(category: category, parent: parent),
+    );
 
     for (final subCategory in category.children) {
       _register(subCategory, parent: category);
@@ -139,13 +161,54 @@ class _CategorySearchEntry {
     }
 
     final matchesThroughParent = queryWords.every(
-      (queryWord) => _matchesOwnWord(queryWord) || _matchesParentWord(queryWord),
+      (queryWord) =>
+          _matchesOwnWord(queryWord) || _matchesParentWord(queryWord),
     );
     if (matchesThroughParent) {
       return _parentWordsMatchQueryRank;
     }
 
     return null;
+  }
+
+  /// The rank of this category for a query with typos, or null if it does not match.
+  /// The fewer typos the better and, for a same number of typos, the labels that start with the first word
+  /// of the query come first, as in the search without typos: "logment" finds "Logement" before "Épargne logement".
+  int? typoRankFor(List<String> queryWords) {
+    final typoCount = _typoCountFor(queryWords);
+    if (typoCount == null) {
+      return null;
+    }
+
+    final firstQueryWord = queryWords.first;
+    final firstLabelWord = _normalizedLabel.split(' ').first;
+    final labelStartsWithQuery =
+        prefixEditDistance(firstQueryWord, firstLabelWord) <=
+        allowedTypoCountOf(firstQueryWord);
+
+    /* Two ranks per typo count: one more typo always ranks lower, whatever the label starts with */
+    return typoCount * 2 + (labelStartsWithQuery ? 0 : 1);
+  }
+
+  /// The number of typos to fix so that every word of the query starts a word of the category or of its parent,
+  /// or null if a word of the query needs more typo fixes than its length allows.
+  int? _typoCountFor(List<String> queryWords) {
+    var typoCount = 0;
+
+    for (final queryWord in queryWords) {
+      final wordTypoCount = [
+        queryWord.length,
+        for (final word in [..._ownWords, ..._parentWords])
+          prefixEditDistance(queryWord, word),
+      ].reduce(min);
+
+      if (wordTypoCount > allowedTypoCountOf(queryWord)) {
+        return null;
+      }
+      typoCount += wordTypoCount;
+    }
+
+    return typoCount;
   }
 
   bool _matchesOwnWord(String queryWord) {

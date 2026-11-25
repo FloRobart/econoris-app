@@ -23,4 +23,32 @@ void main() {
       expect(searchWordsOf('  - '), isEmpty);
     });
   });
+
+  group('prefixEditDistance', () {
+    test('is zero for the beginning of the word', () {
+      expect(prefixEditDistance('carbu', 'carburant'), 0);
+    });
+
+    test('counts a missing, a replaced or an extra letter as one typo', () {
+      expect(prefixEditDistance('esence', 'essence'), 1);
+      expect(prefixEditDistance('cinrma', 'cinema'), 1);
+      expect(prefixEditDistance('loyyer', 'loyer'), 1);
+    });
+
+    test('counts two swapped letters as one typo', () {
+      expect(prefixEditDistance('lyoer', 'loyer'), 1);
+    });
+
+    test('counts every letter of a word with nothing in common', () {
+      expect(prefixEditDistance('xyz', 'loyer'), 3);
+    });
+  });
+
+  group('allowedTypoCountOf', () {
+    test('allows more typos in longer words', () {
+      expect(allowedTypoCountOf('eau'), 0);
+      expect(allowedTypoCountOf('loyer'), 1);
+      expect(allowedTypoCountOf('carbirant'), 2);
+    });
+  });
 }

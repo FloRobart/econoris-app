@@ -84,4 +84,28 @@ void main() {
       expect(catalog.search('loyer xyz'), isEmpty);
     });
   });
+
+  group('CategoryCatalog.search with typos', () {
+    test('finds a category despite a missing, replaced or swapped letter', () {
+      expect(labelsOf(catalog.search('esence')), ['Carburant et recharge']);
+      expect(labelsOf(catalog.search('carbirant')), ['Carburant et recharge']);
+      expect(labelsOf(catalog.search('lyoer')), ['Loyer']);
+    });
+
+    test('tolerates typos in every word of the query', () {
+      expect(labelsOf(catalog.search('asurance auto')), ['Assurance véhicule']);
+    });
+
+    test('puts the label that starts with the query first', () {
+      expect(labelsOf(catalog.search('logment')).first, 'Logement');
+    });
+
+    test('tolerates no typo in short words', () {
+      expect(catalog.search('eu'), isEmpty);
+    });
+
+    test('finds nothing when the query is too far from every category', () {
+      expect(catalog.search('xyzt'), isEmpty);
+    });
+  });
 }
