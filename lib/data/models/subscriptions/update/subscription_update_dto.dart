@@ -10,7 +10,7 @@ abstract class SubscriptionUpdateDto with _$SubscriptionUpdateDto {
     @JsonKey(name: 'start_date') required String startDate,
     required String label,
     required double amount,
-    required String category,
+    @JsonKey(name: 'category_id') required int categoryId,
     required String? source,
     required String? destination,
     @Default(0.0) double costs,

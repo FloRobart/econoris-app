@@ -10,7 +10,7 @@ abstract class OperationDto with _$OperationDto {
     @JsonKey(name: 'levy_date') required String levyDate,
     required String label,
     required double amount,
-    required String category,
+    @JsonKey(name: 'category_id') required int categoryId,
     required String? source,
     required String? destination,
     required double costs,

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OperationCreate {
 
-@JsonKey(name: 'levy_date') DateTime get levyDate; String get label; double get amount; String get category;@JsonKey(name: 'is_validate') bool get isValidate;
+@JsonKey(name: 'levy_date') DateTime get levyDate; String get label; double get amount;@JsonKey(name: 'category_id') int get categoryId;@JsonKey(name: 'is_validate') bool get isValidate;
 /// Create a copy of OperationCreate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $OperationCreateCopyWith<OperationCreate> get copyWith => _$OperationCreateCopyW
 @override
 bool operator ==(Object other) {
   final _this = this as OperationCreate;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OperationCreate&&(identical(other.levyDate, _this.levyDate) || other.levyDate == _this.levyDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.isValidate, _this.isValidate) || other.isValidate == _this.isValidate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OperationCreate&&(identical(other.levyDate, _this.levyDate) || other.levyDate == _this.levyDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.categoryId, _this.categoryId) || other.categoryId == _this.categoryId)&&(identical(other.isValidate, _this.isValidate) || other.isValidate == _this.isValidate));
 }
 
 
 @override
 int get hashCode {
   final _this = this as OperationCreate;
-  return Object.hash(runtimeType,_this.levyDate,_this.label,_this.amount,_this.category,_this.isValidate);
+  return Object.hash(runtimeType,_this.levyDate,_this.label,_this.amount,_this.categoryId,_this.isValidate);
 }
 
 @override
 String toString() {
   final _this = this as OperationCreate;
-  return 'OperationCreate(levyDate: ${_this.levyDate}, label: ${_this.label}, amount: ${_this.amount}, category: ${_this.category}, isValidate: ${_this.isValidate})';
+  return 'OperationCreate(levyDate: ${_this.levyDate}, label: ${_this.label}, amount: ${_this.amount}, categoryId: ${_this.categoryId}, isValidate: ${_this.isValidate})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $OperationCreateCopyWith<$Res>  {
   factory $OperationCreateCopyWith(OperationCreate value, $Res Function(OperationCreate) _then) = _$OperationCreateCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'levy_date') DateTime levyDate, String label, double amount, String category,@JsonKey(name: 'is_validate') bool isValidate
+@JsonKey(name: 'levy_date') DateTime levyDate, String label, double amount,@JsonKey(name: 'category_id') int categoryId,@JsonKey(name: 'is_validate') bool isValidate
 });
 
 
@@ -68,13 +68,13 @@ class _$OperationCreateCopyWithImpl<$Res>
 
 /// Create a copy of OperationCreate
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? levyDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? isValidate = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? levyDate = null,Object? label = null,Object? amount = null,Object? categoryId = null,Object? isValidate = null,}) {
   return _then(OperationCreate(
 levyDate: null == levyDate ? _self.levyDate : levyDate // ignore: cast_nullable_to_non_nullable
 as DateTime,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as String,isValidate: null == isValidate ? _self.isValidate : isValidate // ignore: cast_nullable_to_non_nullable
+as double,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,isValidate: null == isValidate ? _self.isValidate : isValidate // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -160,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'levy_date')  DateTime levyDate,  String label,  double amount,  String category, @JsonKey(name: 'is_validate')  bool isValidate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'levy_date')  DateTime levyDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId, @JsonKey(name: 'is_validate')  bool isValidate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OperationCreate() when $default != null:
-return $default(_that.levyDate,_that.label,_that.amount,_that.category,_that.isValidate);case _:
+return $default(_that.levyDate,_that.label,_that.amount,_that.categoryId,_that.isValidate);case _:
   return orElse();
 
 }
@@ -181,10 +181,10 @@ return $default(_that.levyDate,_that.label,_that.amount,_that.category,_that.isV
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'levy_date')  DateTime levyDate,  String label,  double amount,  String category, @JsonKey(name: 'is_validate')  bool isValidate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'levy_date')  DateTime levyDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId, @JsonKey(name: 'is_validate')  bool isValidate)  $default,) {final _that = this;
 switch (_that) {
 case _OperationCreate():
-return $default(_that.levyDate,_that.label,_that.amount,_that.category,_that.isValidate);case _:
+return $default(_that.levyDate,_that.label,_that.amount,_that.categoryId,_that.isValidate);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +201,10 @@ return $default(_that.levyDate,_that.label,_that.amount,_that.category,_that.isV
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'levy_date')  DateTime levyDate,  String label,  double amount,  String category, @JsonKey(name: 'is_validate')  bool isValidate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'levy_date')  DateTime levyDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId, @JsonKey(name: 'is_validate')  bool isValidate)?  $default,) {final _that = this;
 switch (_that) {
 case _OperationCreate() when $default != null:
-return $default(_that.levyDate,_that.label,_that.amount,_that.category,_that.isValidate);case _:
+return $default(_that.levyDate,_that.label,_that.amount,_that.categoryId,_that.isValidate);case _:
   return null;
 
 }
@@ -216,13 +216,13 @@ return $default(_that.levyDate,_that.label,_that.amount,_that.category,_that.isV
 
 
 class _OperationCreate implements OperationCreate {
-  const _OperationCreate({@JsonKey(name: 'levy_date') required this.levyDate, required this.label, required this.amount, required this.category, @JsonKey(name: 'is_validate') this.isValidate = false});
+  const _OperationCreate({@JsonKey(name: 'levy_date') required this.levyDate, required this.label, required this.amount, @JsonKey(name: 'category_id') required this.categoryId, @JsonKey(name: 'is_validate') this.isValidate = false});
   
 
 @override@JsonKey(name: 'levy_date') final  DateTime levyDate;
 @override final  String label;
 @override final  double amount;
-@override final  String category;
+@override@JsonKey(name: 'category_id') final  int categoryId;
 @override@JsonKey(name: 'is_validate') final  bool isValidate;
 
 /// Create a copy of OperationCreate
@@ -235,18 +235,18 @@ _$OperationCreateCopyWith<_OperationCreate> get copyWith => __$OperationCreateCo
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OperationCreate&&(identical(other.levyDate, levyDate) || other.levyDate == levyDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.isValidate, isValidate) || other.isValidate == isValidate));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OperationCreate&&(identical(other.levyDate, levyDate) || other.levyDate == levyDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.isValidate, isValidate) || other.isValidate == isValidate));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,levyDate,label,amount,category,isValidate);
+    return Object.hash(runtimeType,levyDate,label,amount,categoryId,isValidate);
 }
 
 @override
 String toString() {
-    return 'OperationCreate(levyDate: $levyDate, label: $label, amount: $amount, category: $category, isValidate: $isValidate)';
+    return 'OperationCreate(levyDate: $levyDate, label: $label, amount: $amount, categoryId: $categoryId, isValidate: $isValidate)';
 }
 
 
@@ -257,7 +257,7 @@ abstract mixin class _$OperationCreateCopyWith<$Res> implements $OperationCreate
   factory _$OperationCreateCopyWith(_OperationCreate value, $Res Function(_OperationCreate) _then) = __$OperationCreateCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'levy_date') DateTime levyDate, String label, double amount, String category,@JsonKey(name: 'is_validate') bool isValidate
+@JsonKey(name: 'levy_date') DateTime levyDate, String label, double amount,@JsonKey(name: 'category_id') int categoryId,@JsonKey(name: 'is_validate') bool isValidate
 });
 
 
@@ -274,13 +274,13 @@ class __$OperationCreateCopyWithImpl<$Res>
 
 /// Create a copy of OperationCreate
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? levyDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? isValidate = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? levyDate = null,Object? label = null,Object? amount = null,Object? categoryId = null,Object? isValidate = null,}) {
   return _then(_OperationCreate(
 levyDate: null == levyDate ? _self.levyDate : levyDate // ignore: cast_nullable_to_non_nullable
 as DateTime,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as String,isValidate: null == isValidate ? _self.isValidate : isValidate // ignore: cast_nullable_to_non_nullable
+as double,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,isValidate: null == isValidate ? _self.isValidate : isValidate // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

@@ -11,7 +11,7 @@ void main() {
     'levy_date': '2026-10-15T00:00:00.000',
     'label': 'Courses du mois',
     'amount': -85.5,
-    'category': 'Courses',
+    'category_id': 49,
     'source': null,
     'destination': 'Supermarché',
     'costs': 0.0,

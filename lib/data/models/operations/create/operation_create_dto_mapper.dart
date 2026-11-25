@@ -7,7 +7,7 @@ extension OperationCreateDtoMapper on OperationCreateDto {
       levyDate: DateTime.parse(levyDate),
       label: label,
       amount: amount,
-      category: category,
+      categoryId: categoryId,
       isValidate: isValidate,
     );
   }

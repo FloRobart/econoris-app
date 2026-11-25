@@ -7,7 +7,7 @@ extension OperationCreateMapper on OperationCreate {
       levyDate: levyDate.toIso8601String(),
       label: label,
       amount: amount,
-      category: category,
+      categoryId: categoryId,
       isValidate: isValidate,
     );
   }

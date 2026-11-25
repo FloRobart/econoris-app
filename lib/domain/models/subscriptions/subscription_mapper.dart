@@ -7,7 +7,7 @@ extension SubscriptionMapper on Subscription {
       id: id,
       label: label,
       amount: amount,
-      category: category,
+      categoryId: categoryId,
       source: source,
       destination: destination,
       costs: costs,

@@ -1,5 +1,7 @@
 import 'package:econoris_app/config/constantes.dart';
+import 'package:econoris_app/domain/models/categories/category_catalog.dart';
 import 'package:econoris_app/domain/models/operations/operation.dart';
+import 'package:econoris_app/ui/core/ui/categories/view_models/category_viewmodel.dart';
 import 'package:econoris_app/ui/operations/view_models/month_change_card_viewmodel.dart';
 import 'package:econoris_app/ui/operations/view_models/operation_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,9 +15,16 @@ final operationStatsProvider = Provider<AsyncValue<OperationStatsViewModel>>((
     monthChangeCardViewModelProvider.select((state) => state.monthOffset),
   );
 
+  /* Without the categories, the statistics are still computed: they are refined once the categories are loaded */
+  final categoryCatalog =
+      ref.watch(categoryViewModelProvider).value ?? CategoryCatalog.empty();
+
   return asyncOperations.whenData(
-    (operations) =>
-        OperationStatsViewModel.fromOperations(operations, monthOffset),
+    (operations) => OperationStatsViewModel.fromOperations(
+      operations,
+      monthOffset,
+      categoryCatalog,
+    ),
   );
 });
 
@@ -61,8 +70,13 @@ class OperationStatsViewModel {
   factory OperationStatsViewModel.fromOperations(
     List<Operation> operations,
     int monthOffset,
+    CategoryCatalog categoryCatalog,
   ) {
-    FinancialDate financialDate = FinancialDate(operations, monthOffset);
+    FinancialDate financialDate = FinancialDate(
+      operations,
+      monthOffset,
+      categoryCatalog,
+    );
 
     final startMonthDate = financialDate.startDate;
     final endMonthDate = financialDate.endDate;
@@ -95,8 +109,9 @@ class OperationStatsViewModel {
         negativeOperationsAmount += operation.amount;
         negativeOperationsCount++;
 
-        if (!Constantes.unavailableMoneyManagementCategories.contains(
-          operation.category,
+        if (!categoryCatalog.belongsToAny(
+          operation.categoryId,
+          Constantes.unavailableMoneyManagementCategoryCodes,
         )) {
           moneyManagementAvailableDepense += operation.amount;
         }
@@ -136,7 +151,11 @@ class OperationStatsViewModel {
 /// Classe utilitaire pour calculer les dates de début et de fin du mois financier en se basant sur les opérations et le décalage de mois.
 /// Le mois financier est défini comme la période entre deux opérations positives (salaires) successives. Si aucune opération positive n'est trouvée, on considère que le mois financier correspond au mois calendaire.
 class FinancialDate {
-  FinancialDate(List<Operation> operations, int monthOffset) {
+  FinancialDate(
+    List<Operation> operations,
+    int monthOffset,
+    this._categoryCatalog,
+  ) {
     _startDate = _resolveFinancialMonthStartDate(operations, monthOffset);
     _endDate = _resolveFinancialMonthEndDate(
       operations,
@@ -144,6 +163,9 @@ class FinancialDate {
       _startDate!,
     );
   }
+
+  /* Finds the salaries among the operations */
+  final CategoryCatalog _categoryCatalog;
 
   DateTime? _startDate;
   DateTime? _endDate;
@@ -179,7 +201,10 @@ class FinancialDate {
                   operation.amount > 0 &&
                   operation.levyDate.isAfter(windowStart) &&
                   operation.levyDate.isBefore(windowEnd) &&
-                  operation.category == "Salaire",
+                  _categoryCatalog.hasCode(
+                    operation.categoryId,
+                    Constantes.salaryCategoryCode,
+                  ),
             )
             .toList()
           ..sort((a, b) => a.levyDate.compareTo(b.levyDate));

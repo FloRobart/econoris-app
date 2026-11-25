@@ -9,7 +9,7 @@ extension OperationDtoMapper on OperationDto {
       levyDate: DateTime.parse(levyDate),
       label: label,
       amount: amount,
-      category: category,
+      categoryId: categoryId,
       source: source,
       destination: destination,
       costs: costs,

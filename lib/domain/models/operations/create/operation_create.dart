@@ -8,7 +8,7 @@ abstract class OperationCreate with _$OperationCreate {
     @JsonKey(name: 'levy_date') required DateTime levyDate,
     required String label,
     required double amount,
-    required String category,
+    @JsonKey(name: 'category_id') required int categoryId,
     @JsonKey(name: 'is_validate') @Default(false) bool isValidate,
   }) = _OperationCreate;
 }

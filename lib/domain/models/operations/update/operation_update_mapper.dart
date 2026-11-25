@@ -8,7 +8,7 @@ extension OperationUpdateMapper on OperationUpdate {
       levyDate: levyDate.toIso8601String(),
       label: label,
       amount: amount,
-      category: category,
+      categoryId: categoryId,
       source: source,
       destination: destination,
       costs: costs,

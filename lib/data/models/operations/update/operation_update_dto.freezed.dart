@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OperationUpdateDto {
 
- int get id;@JsonKey(name: 'levy_date') String get levyDate; String get label; double get amount; String get category; String? get source; String? get destination; double get costs;@JsonKey(name: 'is_validate') bool get isValidate;
+ int get id;@JsonKey(name: 'levy_date') String get levyDate; String get label; double get amount;@JsonKey(name: 'category_id') int get categoryId; String? get source; String? get destination; double get costs;@JsonKey(name: 'is_validate') bool get isValidate;
 /// Create a copy of OperationUpdateDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $OperationUpdateDtoCopyWith<OperationUpdateDto> get copyWith => _$OperationUpdat
 @override
 bool operator ==(Object other) {
   final _this = this as OperationUpdateDto;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OperationUpdateDto&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.levyDate, _this.levyDate) || other.levyDate == _this.levyDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.destination, _this.destination) || other.destination == _this.destination)&&(identical(other.costs, _this.costs) || other.costs == _this.costs)&&(identical(other.isValidate, _this.isValidate) || other.isValidate == _this.isValidate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OperationUpdateDto&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.levyDate, _this.levyDate) || other.levyDate == _this.levyDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.categoryId, _this.categoryId) || other.categoryId == _this.categoryId)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.destination, _this.destination) || other.destination == _this.destination)&&(identical(other.costs, _this.costs) || other.costs == _this.costs)&&(identical(other.isValidate, _this.isValidate) || other.isValidate == _this.isValidate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as OperationUpdateDto;
-  return Object.hash(runtimeType,_this.id,_this.levyDate,_this.label,_this.amount,_this.category,_this.source,_this.destination,_this.costs,_this.isValidate);
+  return Object.hash(runtimeType,_this.id,_this.levyDate,_this.label,_this.amount,_this.categoryId,_this.source,_this.destination,_this.costs,_this.isValidate);
 }
 
 @override
 String toString() {
   final _this = this as OperationUpdateDto;
-  return 'OperationUpdateDto(id: ${_this.id}, levyDate: ${_this.levyDate}, label: ${_this.label}, amount: ${_this.amount}, category: ${_this.category}, source: ${_this.source}, destination: ${_this.destination}, costs: ${_this.costs}, isValidate: ${_this.isValidate})';
+  return 'OperationUpdateDto(id: ${_this.id}, levyDate: ${_this.levyDate}, label: ${_this.label}, amount: ${_this.amount}, categoryId: ${_this.categoryId}, source: ${_this.source}, destination: ${_this.destination}, costs: ${_this.costs}, isValidate: ${_this.isValidate})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $OperationUpdateDtoCopyWith<$Res>  {
   factory $OperationUpdateDtoCopyWith(OperationUpdateDto value, $Res Function(OperationUpdateDto) _then) = _$OperationUpdateDtoCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'levy_date') String levyDate, String label, double amount, String category, String? source, String? destination, double costs,@JsonKey(name: 'is_validate') bool isValidate
+ int id,@JsonKey(name: 'levy_date') String levyDate, String label, double amount,@JsonKey(name: 'category_id') int categoryId, String? source, String? destination, double costs,@JsonKey(name: 'is_validate') bool isValidate
 });
 
 
@@ -71,14 +71,14 @@ class _$OperationUpdateDtoCopyWithImpl<$Res>
 
 /// Create a copy of OperationUpdateDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? levyDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? isValidate = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? levyDate = null,Object? label = null,Object? amount = null,Object? categoryId = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? isValidate = null,}) {
   return _then(OperationUpdateDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,levyDate: null == levyDate ? _self.levyDate : levyDate // ignore: cast_nullable_to_non_nullable
 as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as String,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as double,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as String?,destination: freezed == destination ? _self.destination : destination // ignore: cast_nullable_to_non_nullable
 as String?,costs: null == costs ? _self.costs : costs // ignore: cast_nullable_to_non_nullable
 as double,isValidate: null == isValidate ? _self.isValidate : isValidate // ignore: cast_nullable_to_non_nullable
@@ -167,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'levy_date')  String levyDate,  String label,  double amount,  String category,  String? source,  String? destination,  double costs, @JsonKey(name: 'is_validate')  bool isValidate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'levy_date')  String levyDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId,  String? source,  String? destination,  double costs, @JsonKey(name: 'is_validate')  bool isValidate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OperationUpdateDto() when $default != null:
-return $default(_that.id,_that.levyDate,_that.label,_that.amount,_that.category,_that.source,_that.destination,_that.costs,_that.isValidate);case _:
+return $default(_that.id,_that.levyDate,_that.label,_that.amount,_that.categoryId,_that.source,_that.destination,_that.costs,_that.isValidate);case _:
   return orElse();
 
 }
@@ -188,10 +188,10 @@ return $default(_that.id,_that.levyDate,_that.label,_that.amount,_that.category,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'levy_date')  String levyDate,  String label,  double amount,  String category,  String? source,  String? destination,  double costs, @JsonKey(name: 'is_validate')  bool isValidate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'levy_date')  String levyDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId,  String? source,  String? destination,  double costs, @JsonKey(name: 'is_validate')  bool isValidate)  $default,) {final _that = this;
 switch (_that) {
 case _OperationUpdateDto():
-return $default(_that.id,_that.levyDate,_that.label,_that.amount,_that.category,_that.source,_that.destination,_that.costs,_that.isValidate);case _:
+return $default(_that.id,_that.levyDate,_that.label,_that.amount,_that.categoryId,_that.source,_that.destination,_that.costs,_that.isValidate);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +208,10 @@ return $default(_that.id,_that.levyDate,_that.label,_that.amount,_that.category,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'levy_date')  String levyDate,  String label,  double amount,  String category,  String? source,  String? destination,  double costs, @JsonKey(name: 'is_validate')  bool isValidate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'levy_date')  String levyDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId,  String? source,  String? destination,  double costs, @JsonKey(name: 'is_validate')  bool isValidate)?  $default,) {final _that = this;
 switch (_that) {
 case _OperationUpdateDto() when $default != null:
-return $default(_that.id,_that.levyDate,_that.label,_that.amount,_that.category,_that.source,_that.destination,_that.costs,_that.isValidate);case _:
+return $default(_that.id,_that.levyDate,_that.label,_that.amount,_that.categoryId,_that.source,_that.destination,_that.costs,_that.isValidate);case _:
   return null;
 
 }
@@ -223,14 +223,14 @@ return $default(_that.id,_that.levyDate,_that.label,_that.amount,_that.category,
 @JsonSerializable()
 
 class _OperationUpdateDto implements OperationUpdateDto {
-  const _OperationUpdateDto({required this.id, @JsonKey(name: 'levy_date') required this.levyDate, required this.label, required this.amount, required this.category, required this.source, required this.destination, this.costs = 0.0, @JsonKey(name: 'is_validate') this.isValidate = true});
+  const _OperationUpdateDto({required this.id, @JsonKey(name: 'levy_date') required this.levyDate, required this.label, required this.amount, @JsonKey(name: 'category_id') required this.categoryId, required this.source, required this.destination, this.costs = 0.0, @JsonKey(name: 'is_validate') this.isValidate = true});
   factory _OperationUpdateDto.fromJson(Map<String, dynamic> json) => _$OperationUpdateDtoFromJson(json);
 
 @override final  int id;
 @override@JsonKey(name: 'levy_date') final  String levyDate;
 @override final  String label;
 @override final  double amount;
-@override final  String category;
+@override@JsonKey(name: 'category_id') final  int categoryId;
 @override final  String? source;
 @override final  String? destination;
 @override@JsonKey() final  double costs;
@@ -249,18 +249,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OperationUpdateDto&&(identical(other.id, id) || other.id == id)&&(identical(other.levyDate, levyDate) || other.levyDate == levyDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.isValidate, isValidate) || other.isValidate == isValidate));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OperationUpdateDto&&(identical(other.id, id) || other.id == id)&&(identical(other.levyDate, levyDate) || other.levyDate == levyDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.isValidate, isValidate) || other.isValidate == isValidate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,levyDate,label,amount,category,source,destination,costs,isValidate);
+    return Object.hash(runtimeType,id,levyDate,label,amount,categoryId,source,destination,costs,isValidate);
 }
 
 @override
 String toString() {
-    return 'OperationUpdateDto(id: $id, levyDate: $levyDate, label: $label, amount: $amount, category: $category, source: $source, destination: $destination, costs: $costs, isValidate: $isValidate)';
+    return 'OperationUpdateDto(id: $id, levyDate: $levyDate, label: $label, amount: $amount, categoryId: $categoryId, source: $source, destination: $destination, costs: $costs, isValidate: $isValidate)';
 }
 
 
@@ -271,7 +271,7 @@ abstract mixin class _$OperationUpdateDtoCopyWith<$Res> implements $OperationUpd
   factory _$OperationUpdateDtoCopyWith(_OperationUpdateDto value, $Res Function(_OperationUpdateDto) _then) = __$OperationUpdateDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'levy_date') String levyDate, String label, double amount, String category, String? source, String? destination, double costs,@JsonKey(name: 'is_validate') bool isValidate
+ int id,@JsonKey(name: 'levy_date') String levyDate, String label, double amount,@JsonKey(name: 'category_id') int categoryId, String? source, String? destination, double costs,@JsonKey(name: 'is_validate') bool isValidate
 });
 
 
@@ -288,14 +288,14 @@ class __$OperationUpdateDtoCopyWithImpl<$Res>
 
 /// Create a copy of OperationUpdateDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? levyDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? isValidate = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? levyDate = null,Object? label = null,Object? amount = null,Object? categoryId = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? isValidate = null,}) {
   return _then(_OperationUpdateDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,levyDate: null == levyDate ? _self.levyDate : levyDate // ignore: cast_nullable_to_non_nullable
 as String,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as String,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as double,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as String?,destination: freezed == destination ? _self.destination : destination // ignore: cast_nullable_to_non_nullable
 as String?,costs: null == costs ? _self.costs : costs // ignore: cast_nullable_to_non_nullable
 as double,isValidate: null == isValidate ? _self.isValidate : isValidate // ignore: cast_nullable_to_non_nullable

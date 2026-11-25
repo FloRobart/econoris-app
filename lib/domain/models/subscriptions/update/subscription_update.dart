@@ -9,7 +9,7 @@ abstract class SubscriptionUpdate with _$SubscriptionUpdate {
     @JsonKey(name: 'start_date') required DateTime startDate,
     required String label,
     required double amount,
-    required String category,
+    @JsonKey(name: 'category_id') required int categoryId,
     required String? source,
     required String? destination,
     @Default(0.0) double costs,

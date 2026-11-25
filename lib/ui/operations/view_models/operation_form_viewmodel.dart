@@ -35,12 +35,8 @@ class OperationFormViewModel extends ChangeNotifier {
     /// Initialise la date sélectionnée
     selectedDate = initialOperation?.levyDate ?? DateTime.now();
 
-    /// Initialise la catégorie sélectionnée
-    final firstCategory = Constantes.operationCategories.first;
-    selectedCategory =
-        Constantes.operationCategories.contains(initialOperation?.category)
-        ? initialOperation!.category
-        : firstCategory;
+    /* A new operation has no category until the user chooses one */
+    selectedCategoryId = initialOperation?.categoryId;
 
     /// Initialise le statut de validation
     isValidate =
@@ -55,7 +51,7 @@ class OperationFormViewModel extends ChangeNotifier {
   late final TextEditingController amountController;
   late final TextEditingController labelController;
   late DateTime selectedDate;
-  late String selectedCategory;
+  int? selectedCategoryId;
   late bool isExpense;
   late bool isValidate;
 
@@ -66,7 +62,7 @@ class OperationFormViewModel extends ChangeNotifier {
   String? _lastSavedAmount;
   String? _lastSavedLabel;
   String? _lastSavedDate;
-  String? _lastSavedCategory;
+  int? _lastSavedCategoryId;
   bool? _lastSavedIsExpense;
 
   bool get isEditing => initialOperation != null;
@@ -82,22 +78,20 @@ class OperationFormViewModel extends ChangeNotifier {
     final draftAmount = prefs.getString(Constantes.draftOperationAmountKey);
     final draftLabel = prefs.getString(Constantes.draftOperationLabelKey);
     final draftDateRaw = prefs.getString(Constantes.draftOperationDateKey);
-    final draftCategory = prefs.getString(Constantes.draftOperationCategoryKey);
+    final draftCategoryId = prefs.getInt(
+      Constantes.draftOperationCategoryIdKey,
+    );
     final draftIsExpense = prefs.getBool(Constantes.draftOperationIsExpenseKey);
 
     _lastSavedAmount = draftAmount;
     _lastSavedLabel = draftLabel;
     _lastSavedDate = draftDateRaw;
-    _lastSavedCategory = draftCategory;
+    _lastSavedCategoryId = draftCategoryId;
     _lastSavedIsExpense = draftIsExpense;
 
     final parsedDate = draftDateRaw == null
         ? null
         : DateTime.tryParse(draftDateRaw);
-    final resolvedCategory =
-        Constantes.operationCategories.contains(draftCategory)
-        ? draftCategory
-        : null;
 
     if (draftAmount != null) {
       amountController.text = draftAmount;
@@ -108,8 +102,8 @@ class OperationFormViewModel extends ChangeNotifier {
     if (parsedDate != null) {
       selectedDate = parsedDate;
     }
-    if (resolvedCategory != null) {
-      selectedCategory = resolvedCategory;
+    if (draftCategoryId != null) {
+      selectedCategoryId = draftCategoryId;
     }
     if (draftIsExpense != null) {
       isExpense = draftIsExpense;
@@ -126,9 +120,9 @@ class OperationFormViewModel extends ChangeNotifier {
     unawaited(_saveDraft());
   }
 
-  /// Met à jour la catégorie sélectionnée et sauvegarde le brouillon.
-  void updateSelectedCategory(String value) {
-    selectedCategory = value;
+  /// Updates the chosen category, and saves the draft.
+  void updateSelectedCategoryId(int value) {
+    selectedCategoryId = value;
     notifyListeners();
     unawaited(_saveDraft());
   }
@@ -149,7 +143,8 @@ class OperationFormViewModel extends ChangeNotifier {
   /// Construit un objet [OperationCreate] à partir des valeurs du formulaire.
   OperationCreate? buildOperationCreate() {
     final parsedAmount = parseAmountForField(amountController.text);
-    if (parsedAmount == null) {
+    final categoryId = selectedCategoryId;
+    if (parsedAmount == null || categoryId == null) {
       return null;
     }
 
@@ -158,7 +153,7 @@ class OperationFormViewModel extends ChangeNotifier {
       levyDate: selectedDate,
       label: labelController.text.trim(),
       amount: signedAmount,
-      category: selectedCategory,
+      categoryId: categoryId,
       isValidate: selectedDate.isBefore(DateTime.now()),
     );
   }
@@ -175,7 +170,7 @@ class OperationFormViewModel extends ChangeNotifier {
       levyDate: operationCreate.levyDate,
       label: operationCreate.label,
       amount: operationCreate.amount,
-      category: operationCreate.category,
+      categoryId: operationCreate.categoryId,
       isValidate: isValidate,
       source: initialOperation?.source,
       destination: initialOperation?.destination,
@@ -195,13 +190,13 @@ class OperationFormViewModel extends ChangeNotifier {
     await prefs.remove(Constantes.draftOperationAmountKey);
     await prefs.remove(Constantes.draftOperationLabelKey);
     await prefs.remove(Constantes.draftOperationDateKey);
-    await prefs.remove(Constantes.draftOperationCategoryKey);
+    await prefs.remove(Constantes.draftOperationCategoryIdKey);
     await prefs.remove(Constantes.draftOperationIsExpenseKey);
 
     _lastSavedAmount = null;
     _lastSavedLabel = null;
     _lastSavedDate = null;
-    _lastSavedCategory = null;
+    _lastSavedCategoryId = null;
     _lastSavedIsExpense = null;
   }
 
@@ -215,7 +210,7 @@ class OperationFormViewModel extends ChangeNotifier {
     final draftAmount = amountController.text;
     final draftLabel = labelController.text;
     final draftDate = selectedDate.toIso8601String();
-    final draftCategory = selectedCategory;
+    final draftCategoryId = selectedCategoryId;
     final draftIsExpense = isExpense;
 
     if (_lastSavedAmount != draftAmount) {
@@ -230,12 +225,9 @@ class OperationFormViewModel extends ChangeNotifier {
       await prefs.setString(Constantes.draftOperationDateKey, draftDate);
       _lastSavedDate = draftDate;
     }
-    if (_lastSavedCategory != draftCategory) {
-      await prefs.setString(
-        Constantes.draftOperationCategoryKey,
-        draftCategory,
-      );
-      _lastSavedCategory = draftCategory;
+    if (draftCategoryId != null && _lastSavedCategoryId != draftCategoryId) {
+      await prefs.setInt(Constantes.draftOperationCategoryIdKey, draftCategoryId);
+      _lastSavedCategoryId = draftCategoryId;
     }
     if (_lastSavedIsExpense != draftIsExpense) {
       await prefs.setBool(

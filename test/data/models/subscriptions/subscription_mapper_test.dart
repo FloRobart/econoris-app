@@ -10,7 +10,7 @@ void main() {
     'id': 7,
     'label': 'Abonnement internet',
     'amount': -29.99,
-    'category': 'Internet, téléphone',
+    'category_id': 66,
     'source': 'Compte courant',
     'destination': null,
     'costs': 0.0,
