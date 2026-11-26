@@ -60,8 +60,10 @@ final suggestedCategoryIdsProvider = Provider.family<List<int>, bool>((
 
   final mostUsedCategoryIds = usageCountByCategoryId.keys.toList()
     ..sort(
-      (firstCategoryId, secondCategoryId) => usageCountByCategoryId[secondCategoryId]!
-          .compareTo(usageCountByCategoryId[firstCategoryId]!),
+      (firstCategoryId, secondCategoryId) =>
+          usageCountByCategoryId[secondCategoryId]!.compareTo(
+            usageCountByCategoryId[firstCategoryId]!,
+          ),
     );
 
   return mostUsedCategoryIds.take(_suggestedCategoriesCount).toList();

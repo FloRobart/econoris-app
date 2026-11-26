@@ -226,7 +226,10 @@ class OperationFormViewModel extends ChangeNotifier {
       _lastSavedDate = draftDate;
     }
     if (draftCategoryId != null && _lastSavedCategoryId != draftCategoryId) {
-      await prefs.setInt(Constantes.draftOperationCategoryIdKey, draftCategoryId);
+      await prefs.setInt(
+        Constantes.draftOperationCategoryIdKey,
+        draftCategoryId,
+      );
       _lastSavedCategoryId = draftCategoryId;
     }
     if (_lastSavedIsExpense != draftIsExpense) {
