@@ -8,7 +8,7 @@ abstract class Subscription with _$Subscription {
     required int id,
     required String label,
     required double amount,
-    required String category,
+    @JsonKey(name: 'category_id') required int categoryId,
     required String? source,
     required String? destination,
     required double costs,

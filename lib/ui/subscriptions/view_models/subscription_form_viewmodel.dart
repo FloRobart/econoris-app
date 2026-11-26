@@ -73,11 +73,8 @@ class SubscriptionFormViewModel extends ChangeNotifier {
 
     selectedDate = initialSubscription?.startDate ?? DateTime.now();
 
-    final firstCategory = Constantes.operationCategories.first;
-    selectedCategory =
-        Constantes.operationCategories.contains(initialSubscription?.category)
-        ? initialSubscription!.category
-        : firstCategory;
+    /* A new subscription has no category until the user chooses one */
+    selectedCategoryId = initialSubscription?.categoryId;
 
     selectedRecurrence = initialSubscription == null
         ? Constantes.subscriptionRecurrences.first
@@ -96,7 +93,7 @@ class SubscriptionFormViewModel extends ChangeNotifier {
   late final TextEditingController amountController;
   late final TextEditingController labelController;
   late DateTime selectedDate;
-  late String selectedCategory;
+  int? selectedCategoryId;
   late String selectedRecurrence;
   late bool isExpense;
   late bool active;
@@ -108,7 +105,7 @@ class SubscriptionFormViewModel extends ChangeNotifier {
   String? _lastSavedAmount;
   String? _lastSavedLabel;
   String? _lastSavedDate;
-  String? _lastSavedCategory;
+  int? _lastSavedCategoryId;
   bool? _lastSavedIsExpense;
 
   bool get isEditing => initialSubscription != null;
@@ -123,8 +120,8 @@ class SubscriptionFormViewModel extends ChangeNotifier {
     final draftAmount = prefs.getString(Constantes.draftSubscriptionAmountKey);
     final draftLabel = prefs.getString(Constantes.draftSubscriptionLabelKey);
     final draftDateRaw = prefs.getString(Constantes.draftSubscriptionDateKey);
-    final draftCategory = prefs.getString(
-      Constantes.draftSubscriptionCategoryKey,
+    final draftCategoryId = prefs.getInt(
+      Constantes.draftSubscriptionCategoryIdKey,
     );
     final draftIsExpense = prefs.getBool(
       Constantes.draftSubscriptionIsExpenseKey,
@@ -133,16 +130,12 @@ class SubscriptionFormViewModel extends ChangeNotifier {
     _lastSavedAmount = draftAmount;
     _lastSavedLabel = draftLabel;
     _lastSavedDate = draftDateRaw;
-    _lastSavedCategory = draftCategory;
+    _lastSavedCategoryId = draftCategoryId;
     _lastSavedIsExpense = draftIsExpense;
 
     final parsedDate = draftDateRaw == null
         ? null
         : DateTime.tryParse(draftDateRaw);
-    final resolvedCategory =
-        Constantes.operationCategories.contains(draftCategory)
-        ? draftCategory
-        : null;
 
     if (draftAmount != null) {
       amountController.text = draftAmount;
@@ -153,8 +146,8 @@ class SubscriptionFormViewModel extends ChangeNotifier {
     if (parsedDate != null) {
       selectedDate = parsedDate;
     }
-    if (resolvedCategory != null) {
-      selectedCategory = resolvedCategory;
+    if (draftCategoryId != null) {
+      selectedCategoryId = draftCategoryId;
     }
     if (draftIsExpense != null) {
       isExpense = draftIsExpense;
@@ -170,8 +163,9 @@ class SubscriptionFormViewModel extends ChangeNotifier {
     unawaited(_saveDraft());
   }
 
-  void updateSelectedCategory(String value) {
-    selectedCategory = value;
+  /// Updates the chosen category, and saves the draft.
+  void updateSelectedCategoryId(int value) {
+    selectedCategoryId = value;
     notifyListeners();
     unawaited(_saveDraft());
   }
@@ -194,7 +188,8 @@ class SubscriptionFormViewModel extends ChangeNotifier {
 
   SubscriptionCreate? buildSubscriptionCreate() {
     final parsedAmount = parseAmountForField(amountController.text);
-    if (parsedAmount == null) {
+    final categoryId = selectedCategoryId;
+    if (parsedAmount == null || categoryId == null) {
       return null;
     }
 
@@ -204,7 +199,7 @@ class SubscriptionFormViewModel extends ChangeNotifier {
       startDate: selectedDate,
       label: labelController.text.trim(),
       amount: signedAmount,
-      category: selectedCategory,
+      categoryId: categoryId,
       recurrence: selectedRecurrence,
       active: active,
     );
@@ -221,7 +216,7 @@ class SubscriptionFormViewModel extends ChangeNotifier {
       startDate: subscriptionCreate.startDate,
       label: subscriptionCreate.label,
       amount: subscriptionCreate.amount,
-      category: subscriptionCreate.category,
+      categoryId: subscriptionCreate.categoryId,
       source: initialSubscription?.source,
       destination: initialSubscription?.destination,
       costs: initialSubscription?.costs ?? 0,
@@ -240,13 +235,13 @@ class SubscriptionFormViewModel extends ChangeNotifier {
     await prefs.remove(Constantes.draftSubscriptionAmountKey);
     await prefs.remove(Constantes.draftSubscriptionLabelKey);
     await prefs.remove(Constantes.draftSubscriptionDateKey);
-    await prefs.remove(Constantes.draftSubscriptionCategoryKey);
+    await prefs.remove(Constantes.draftSubscriptionCategoryIdKey);
     await prefs.remove(Constantes.draftSubscriptionIsExpenseKey);
 
     _lastSavedAmount = null;
     _lastSavedLabel = null;
     _lastSavedDate = null;
-    _lastSavedCategory = null;
+    _lastSavedCategoryId = null;
     _lastSavedIsExpense = null;
   }
 
@@ -259,7 +254,7 @@ class SubscriptionFormViewModel extends ChangeNotifier {
     final draftAmount = amountController.text;
     final draftLabel = labelController.text;
     final draftDate = selectedDate.toIso8601String();
-    final draftCategory = selectedCategory;
+    final draftCategoryId = selectedCategoryId;
     final draftIsExpense = isExpense;
 
     if (_lastSavedAmount != draftAmount) {
@@ -274,12 +269,12 @@ class SubscriptionFormViewModel extends ChangeNotifier {
       await prefs.setString(Constantes.draftSubscriptionDateKey, draftDate);
       _lastSavedDate = draftDate;
     }
-    if (_lastSavedCategory != draftCategory) {
-      await prefs.setString(
-        Constantes.draftSubscriptionCategoryKey,
-        draftCategory,
+    if (draftCategoryId != null && _lastSavedCategoryId != draftCategoryId) {
+      await prefs.setInt(
+        Constantes.draftSubscriptionCategoryIdKey,
+        draftCategoryId,
       );
-      _lastSavedCategory = draftCategory;
+      _lastSavedCategoryId = draftCategoryId;
     }
     if (_lastSavedIsExpense != draftIsExpense) {
       await prefs.setBool(

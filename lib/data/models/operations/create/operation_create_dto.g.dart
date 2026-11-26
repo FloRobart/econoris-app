@@ -11,7 +11,7 @@ _OperationCreateDto _$OperationCreateDtoFromJson(Map<String, dynamic> json) =>
       levyDate: json['levy_date'] as String,
       label: json['label'] as String,
       amount: (json['amount'] as num).toDouble(),
-      category: json['category'] as String,
+      categoryId: (json['category_id'] as num).toInt(),
       isValidate: json['is_validate'] as bool? ?? true,
     );
 
@@ -20,6 +20,6 @@ Map<String, dynamic> _$OperationCreateDtoToJson(_OperationCreateDto instance) =>
       'levy_date': instance.levyDate,
       'label': instance.label,
       'amount': instance.amount,
-      'category': instance.category,
+      'category_id': instance.categoryId,
       'is_validate': instance.isValidate,
     };

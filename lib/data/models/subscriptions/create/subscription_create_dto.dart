@@ -9,7 +9,7 @@ abstract class SubscriptionCreateDto with _$SubscriptionCreateDto {
     @JsonKey(name: 'start_date') required String startDate,
     required String label,
     required double amount,
-    required String category,
+    @JsonKey(name: 'category_id') required int categoryId,
     required bool active,
     @JsonKey(name: 'interval_value') required int intervalValue,
     @JsonKey(name: 'interval_unit') required String intervalUnit,

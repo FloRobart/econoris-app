@@ -8,7 +8,7 @@ abstract class SubscriptionCreate with _$SubscriptionCreate {
     @JsonKey(name: 'start_date') required DateTime startDate,
     required String label,
     required double amount,
-    required String category,
+    @JsonKey(name: 'category_id') required int categoryId,
     required String recurrence,
     @Default(true) bool active,
   }) = _SubscriptionCreate;

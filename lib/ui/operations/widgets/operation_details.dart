@@ -1,11 +1,15 @@
+import 'package:econoris_app/domain/models/categories/category_catalog.dart';
 import 'package:econoris_app/domain/models/operations/operation.dart';
 import 'package:econoris_app/ui/core/themes/theme.dart';
+import 'package:econoris_app/ui/core/ui/categories/category_display.dart';
+import 'package:econoris_app/ui/core/ui/categories/view_models/category_viewmodel.dart';
 import 'package:econoris_app/ui/core/ui/utils/format_amount.dart';
 import 'package:econoris_app/ui/core/ui/utils/format_date.dart';
 import 'package:econoris_app/ui/core/ui/widgets/detail_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OperationDetails extends StatelessWidget {
+class OperationDetails extends ConsumerWidget {
   const OperationDetails({
     super.key,
     required this.operation,
@@ -18,10 +22,12 @@ class OperationDetails extends StatelessWidget {
   final Future<void> Function(Operation operation) onEditOperation;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final String operationDate =
         formatDate(operation.levyDate, customFormat: 'dd MMMM yyyy') ?? '-';
+    final CategoryCatalog categoryCatalog =
+        ref.watch(categoryViewModelProvider).value ?? CategoryCatalog.empty();
 
     return SafeArea(
       child: Padding(
@@ -91,9 +97,12 @@ class OperationDetails extends StatelessWidget {
                   : AppTheme.successColor,
             ),
             DetailRow(
-              icon: Icons.category,
+              icon: categoryIconOf(
+                categoryCatalog,
+                categoryCatalog.findById(operation.categoryId),
+              ),
               label: 'Catégorie',
-              value: operation.category,
+              value: categoryFullLabelOf(categoryCatalog, operation.categoryId),
             ),
             DetailRow(
               icon: Icons.source,

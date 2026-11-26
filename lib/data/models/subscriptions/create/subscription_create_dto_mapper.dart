@@ -8,7 +8,7 @@ extension SubscriptionCreateDtoMapper on SubscriptionCreateDto {
       startDate: DateTime.parse(startDate),
       label: label,
       amount: amount,
-      category: category,
+      categoryId: categoryId,
       active: active,
       recurrence: recurrenceFromInterval(
         intervalValue: intervalValue,
