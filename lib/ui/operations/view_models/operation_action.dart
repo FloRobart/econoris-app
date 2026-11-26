@@ -112,7 +112,7 @@ class OperationAction {
         levyDate: operationUpdate.levyDate,
         label: operationUpdate.label,
         amount: operationUpdate.amount,
-        category: operationUpdate.category,
+        categoryId: operationUpdate.categoryId,
         source: operationUpdate.source,
         destination: operationUpdate.destination,
         costs: operationUpdate.costs,

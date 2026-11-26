@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SubscriptionCreate {
 
-@JsonKey(name: 'start_date') DateTime get startDate; String get label; double get amount; String get category; String get recurrence; bool get active;
+@JsonKey(name: 'start_date') DateTime get startDate; String get label; double get amount;@JsonKey(name: 'category_id') int get categoryId; String get recurrence; bool get active;
 /// Create a copy of SubscriptionCreate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $SubscriptionCreateCopyWith<SubscriptionCreate> get copyWith => _$SubscriptionCr
 @override
 bool operator ==(Object other) {
   final _this = this as SubscriptionCreate;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionCreate&&(identical(other.startDate, _this.startDate) || other.startDate == _this.startDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.recurrence, _this.recurrence) || other.recurrence == _this.recurrence)&&(identical(other.active, _this.active) || other.active == _this.active));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionCreate&&(identical(other.startDate, _this.startDate) || other.startDate == _this.startDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.categoryId, _this.categoryId) || other.categoryId == _this.categoryId)&&(identical(other.recurrence, _this.recurrence) || other.recurrence == _this.recurrence)&&(identical(other.active, _this.active) || other.active == _this.active));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SubscriptionCreate;
-  return Object.hash(runtimeType,_this.startDate,_this.label,_this.amount,_this.category,_this.recurrence,_this.active);
+  return Object.hash(runtimeType,_this.startDate,_this.label,_this.amount,_this.categoryId,_this.recurrence,_this.active);
 }
 
 @override
 String toString() {
   final _this = this as SubscriptionCreate;
-  return 'SubscriptionCreate(startDate: ${_this.startDate}, label: ${_this.label}, amount: ${_this.amount}, category: ${_this.category}, recurrence: ${_this.recurrence}, active: ${_this.active})';
+  return 'SubscriptionCreate(startDate: ${_this.startDate}, label: ${_this.label}, amount: ${_this.amount}, categoryId: ${_this.categoryId}, recurrence: ${_this.recurrence}, active: ${_this.active})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $SubscriptionCreateCopyWith<$Res>  {
   factory $SubscriptionCreateCopyWith(SubscriptionCreate value, $Res Function(SubscriptionCreate) _then) = _$SubscriptionCreateCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'start_date') DateTime startDate, String label, double amount, String category, String recurrence, bool active
+@JsonKey(name: 'start_date') DateTime startDate, String label, double amount,@JsonKey(name: 'category_id') int categoryId, String recurrence, bool active
 });
 
 
@@ -68,13 +68,13 @@ class _$SubscriptionCreateCopyWithImpl<$Res>
 
 /// Create a copy of SubscriptionCreate
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? startDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? recurrence = null,Object? active = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? startDate = null,Object? label = null,Object? amount = null,Object? categoryId = null,Object? recurrence = null,Object? active = null,}) {
   return _then(SubscriptionCreate(
 startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as String,recurrence: null == recurrence ? _self.recurrence : recurrence // ignore: cast_nullable_to_non_nullable
+as double,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,recurrence: null == recurrence ? _self.recurrence : recurrence // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -161,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount,  String category,  String recurrence,  bool active)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId,  String recurrence,  bool active)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SubscriptionCreate() when $default != null:
-return $default(_that.startDate,_that.label,_that.amount,_that.category,_that.recurrence,_that.active);case _:
+return $default(_that.startDate,_that.label,_that.amount,_that.categoryId,_that.recurrence,_that.active);case _:
   return orElse();
 
 }
@@ -182,10 +182,10 @@ return $default(_that.startDate,_that.label,_that.amount,_that.category,_that.re
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount,  String category,  String recurrence,  bool active)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId,  String recurrence,  bool active)  $default,) {final _that = this;
 switch (_that) {
 case _SubscriptionCreate():
-return $default(_that.startDate,_that.label,_that.amount,_that.category,_that.recurrence,_that.active);case _:
+return $default(_that.startDate,_that.label,_that.amount,_that.categoryId,_that.recurrence,_that.active);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +202,10 @@ return $default(_that.startDate,_that.label,_that.amount,_that.category,_that.re
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount,  String category,  String recurrence,  bool active)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId,  String recurrence,  bool active)?  $default,) {final _that = this;
 switch (_that) {
 case _SubscriptionCreate() when $default != null:
-return $default(_that.startDate,_that.label,_that.amount,_that.category,_that.recurrence,_that.active);case _:
+return $default(_that.startDate,_that.label,_that.amount,_that.categoryId,_that.recurrence,_that.active);case _:
   return null;
 
 }
@@ -217,13 +217,13 @@ return $default(_that.startDate,_that.label,_that.amount,_that.category,_that.re
 
 
 class _SubscriptionCreate implements SubscriptionCreate {
-  const _SubscriptionCreate({@JsonKey(name: 'start_date') required this.startDate, required this.label, required this.amount, required this.category, required this.recurrence, this.active = true});
+  const _SubscriptionCreate({@JsonKey(name: 'start_date') required this.startDate, required this.label, required this.amount, @JsonKey(name: 'category_id') required this.categoryId, required this.recurrence, this.active = true});
   
 
 @override@JsonKey(name: 'start_date') final  DateTime startDate;
 @override final  String label;
 @override final  double amount;
-@override final  String category;
+@override@JsonKey(name: 'category_id') final  int categoryId;
 @override final  String recurrence;
 @override@JsonKey() final  bool active;
 
@@ -237,18 +237,18 @@ _$SubscriptionCreateCopyWith<_SubscriptionCreate> get copyWith => __$Subscriptio
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionCreate&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.recurrence, recurrence) || other.recurrence == recurrence)&&(identical(other.active, active) || other.active == active));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionCreate&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.recurrence, recurrence) || other.recurrence == recurrence)&&(identical(other.active, active) || other.active == active));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,startDate,label,amount,category,recurrence,active);
+    return Object.hash(runtimeType,startDate,label,amount,categoryId,recurrence,active);
 }
 
 @override
 String toString() {
-    return 'SubscriptionCreate(startDate: $startDate, label: $label, amount: $amount, category: $category, recurrence: $recurrence, active: $active)';
+    return 'SubscriptionCreate(startDate: $startDate, label: $label, amount: $amount, categoryId: $categoryId, recurrence: $recurrence, active: $active)';
 }
 
 
@@ -259,7 +259,7 @@ abstract mixin class _$SubscriptionCreateCopyWith<$Res> implements $Subscription
   factory _$SubscriptionCreateCopyWith(_SubscriptionCreate value, $Res Function(_SubscriptionCreate) _then) = __$SubscriptionCreateCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'start_date') DateTime startDate, String label, double amount, String category, String recurrence, bool active
+@JsonKey(name: 'start_date') DateTime startDate, String label, double amount,@JsonKey(name: 'category_id') int categoryId, String recurrence, bool active
 });
 
 
@@ -276,13 +276,13 @@ class __$SubscriptionCreateCopyWithImpl<$Res>
 
 /// Create a copy of SubscriptionCreate
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? startDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? recurrence = null,Object? active = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? startDate = null,Object? label = null,Object? amount = null,Object? categoryId = null,Object? recurrence = null,Object? active = null,}) {
   return _then(_SubscriptionCreate(
 startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as String,recurrence: null == recurrence ? _self.recurrence : recurrence // ignore: cast_nullable_to_non_nullable
+as double,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,recurrence: null == recurrence ? _self.recurrence : recurrence // ignore: cast_nullable_to_non_nullable
 as String,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
 as bool,
   ));

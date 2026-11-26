@@ -9,7 +9,7 @@ abstract class OperationUpdate with _$OperationUpdate {
     @JsonKey(name: 'levy_date') required DateTime levyDate,
     required String label,
     required double amount,
-    required String category,
+    @JsonKey(name: 'category_id') required int categoryId,
     required String? source,
     required String? destination,
     @Default(0.0) double costs,

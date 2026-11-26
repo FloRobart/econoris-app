@@ -9,7 +9,7 @@ extension SubscriptionUpdateDtoMapper on SubscriptionUpdateDto {
       startDate: DateTime.parse(startDate),
       label: label,
       amount: amount,
-      category: category,
+      categoryId: categoryId,
       source: source,
       destination: destination,
       costs: costs,

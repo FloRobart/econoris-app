@@ -4,7 +4,7 @@ import 'package:econoris_app/config/constantes.dart';
 import 'package:econoris_app/domain/models/subscriptions/subscription.dart';
 import 'package:econoris_app/ui/core/ui/forms/amount_field.dart';
 import 'package:econoris_app/ui/core/ui/forms/amount_type_switch_field.dart';
-import 'package:econoris_app/ui/core/ui/forms/categories_field.dart';
+import 'package:econoris_app/ui/core/ui/forms/category_field.dart';
 import 'package:econoris_app/ui/core/ui/forms/date_field.dart';
 import 'package:econoris_app/ui/core/ui/forms/label_field.dart';
 import 'package:econoris_app/ui/core/ui/forms/submit_button.dart';
@@ -138,10 +138,10 @@ class _SubscriptionCreateFormState extends State<SubscriptionCreateForm> {
 
                     const SizedBox(height: 16),
 
-                    CategoriesField(
-                      categories: Constantes.operationCategories,
-                      selectedCategory: _viewModel.selectedCategory,
-                      onCategorySelected: _viewModel.updateSelectedCategory,
+                    CategoryField(
+                      selectedCategoryId: _viewModel.selectedCategoryId,
+                      isExpense: _viewModel.isExpense,
+                      onCategorySelected: _viewModel.updateSelectedCategoryId,
                     ),
 
                     const SizedBox(height: 16),

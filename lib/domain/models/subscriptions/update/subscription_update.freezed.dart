@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SubscriptionUpdate {
 
- int get id;@JsonKey(name: 'start_date') DateTime get startDate; String get label; double get amount; String get category; String? get source; String? get destination; double get costs; bool get active; String get recurrence;
+ int get id;@JsonKey(name: 'start_date') DateTime get startDate; String get label; double get amount;@JsonKey(name: 'category_id') int get categoryId; String? get source; String? get destination; double get costs; bool get active; String get recurrence;
 /// Create a copy of SubscriptionUpdate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $SubscriptionUpdateCopyWith<SubscriptionUpdate> get copyWith => _$SubscriptionUp
 @override
 bool operator ==(Object other) {
   final _this = this as SubscriptionUpdate;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionUpdate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.startDate, _this.startDate) || other.startDate == _this.startDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.destination, _this.destination) || other.destination == _this.destination)&&(identical(other.costs, _this.costs) || other.costs == _this.costs)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.recurrence, _this.recurrence) || other.recurrence == _this.recurrence));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionUpdate&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.startDate, _this.startDate) || other.startDate == _this.startDate)&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.categoryId, _this.categoryId) || other.categoryId == _this.categoryId)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.destination, _this.destination) || other.destination == _this.destination)&&(identical(other.costs, _this.costs) || other.costs == _this.costs)&&(identical(other.active, _this.active) || other.active == _this.active)&&(identical(other.recurrence, _this.recurrence) || other.recurrence == _this.recurrence));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SubscriptionUpdate;
-  return Object.hash(runtimeType,_this.id,_this.startDate,_this.label,_this.amount,_this.category,_this.source,_this.destination,_this.costs,_this.active,_this.recurrence);
+  return Object.hash(runtimeType,_this.id,_this.startDate,_this.label,_this.amount,_this.categoryId,_this.source,_this.destination,_this.costs,_this.active,_this.recurrence);
 }
 
 @override
 String toString() {
   final _this = this as SubscriptionUpdate;
-  return 'SubscriptionUpdate(id: ${_this.id}, startDate: ${_this.startDate}, label: ${_this.label}, amount: ${_this.amount}, category: ${_this.category}, source: ${_this.source}, destination: ${_this.destination}, costs: ${_this.costs}, active: ${_this.active}, recurrence: ${_this.recurrence})';
+  return 'SubscriptionUpdate(id: ${_this.id}, startDate: ${_this.startDate}, label: ${_this.label}, amount: ${_this.amount}, categoryId: ${_this.categoryId}, source: ${_this.source}, destination: ${_this.destination}, costs: ${_this.costs}, active: ${_this.active}, recurrence: ${_this.recurrence})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $SubscriptionUpdateCopyWith<$Res>  {
   factory $SubscriptionUpdateCopyWith(SubscriptionUpdate value, $Res Function(SubscriptionUpdate) _then) = _$SubscriptionUpdateCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'start_date') DateTime startDate, String label, double amount, String category, String? source, String? destination, double costs, bool active, String recurrence
+ int id,@JsonKey(name: 'start_date') DateTime startDate, String label, double amount,@JsonKey(name: 'category_id') int categoryId, String? source, String? destination, double costs, bool active, String recurrence
 });
 
 
@@ -68,14 +68,14 @@ class _$SubscriptionUpdateCopyWithImpl<$Res>
 
 /// Create a copy of SubscriptionUpdate
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? active = null,Object? recurrence = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startDate = null,Object? label = null,Object? amount = null,Object? categoryId = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? active = null,Object? recurrence = null,}) {
   return _then(SubscriptionUpdate(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as String,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as double,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as String?,destination: freezed == destination ? _self.destination : destination // ignore: cast_nullable_to_non_nullable
 as String?,costs: null == costs ? _self.costs : costs // ignore: cast_nullable_to_non_nullable
 as double,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable
@@ -165,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount,  String category,  String? source,  String? destination,  double costs,  bool active,  String recurrence)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId,  String? source,  String? destination,  double costs,  bool active,  String recurrence)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SubscriptionUpdate() when $default != null:
-return $default(_that.id,_that.startDate,_that.label,_that.amount,_that.category,_that.source,_that.destination,_that.costs,_that.active,_that.recurrence);case _:
+return $default(_that.id,_that.startDate,_that.label,_that.amount,_that.categoryId,_that.source,_that.destination,_that.costs,_that.active,_that.recurrence);case _:
   return orElse();
 
 }
@@ -186,10 +186,10 @@ return $default(_that.id,_that.startDate,_that.label,_that.amount,_that.category
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount,  String category,  String? source,  String? destination,  double costs,  bool active,  String recurrence)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId,  String? source,  String? destination,  double costs,  bool active,  String recurrence)  $default,) {final _that = this;
 switch (_that) {
 case _SubscriptionUpdate():
-return $default(_that.id,_that.startDate,_that.label,_that.amount,_that.category,_that.source,_that.destination,_that.costs,_that.active,_that.recurrence);case _:
+return $default(_that.id,_that.startDate,_that.label,_that.amount,_that.categoryId,_that.source,_that.destination,_that.costs,_that.active,_that.recurrence);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +206,10 @@ return $default(_that.id,_that.startDate,_that.label,_that.amount,_that.category
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount,  String category,  String? source,  String? destination,  double costs,  bool active,  String recurrence)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'start_date')  DateTime startDate,  String label,  double amount, @JsonKey(name: 'category_id')  int categoryId,  String? source,  String? destination,  double costs,  bool active,  String recurrence)?  $default,) {final _that = this;
 switch (_that) {
 case _SubscriptionUpdate() when $default != null:
-return $default(_that.id,_that.startDate,_that.label,_that.amount,_that.category,_that.source,_that.destination,_that.costs,_that.active,_that.recurrence);case _:
+return $default(_that.id,_that.startDate,_that.label,_that.amount,_that.categoryId,_that.source,_that.destination,_that.costs,_that.active,_that.recurrence);case _:
   return null;
 
 }
@@ -221,14 +221,14 @@ return $default(_that.id,_that.startDate,_that.label,_that.amount,_that.category
 
 
 class _SubscriptionUpdate implements SubscriptionUpdate {
-  const _SubscriptionUpdate({required this.id, @JsonKey(name: 'start_date') required this.startDate, required this.label, required this.amount, required this.category, required this.source, required this.destination, this.costs = 0.0, this.active = true, required this.recurrence});
+  const _SubscriptionUpdate({required this.id, @JsonKey(name: 'start_date') required this.startDate, required this.label, required this.amount, @JsonKey(name: 'category_id') required this.categoryId, required this.source, required this.destination, this.costs = 0.0, this.active = true, required this.recurrence});
   
 
 @override final  int id;
 @override@JsonKey(name: 'start_date') final  DateTime startDate;
 @override final  String label;
 @override final  double amount;
-@override final  String category;
+@override@JsonKey(name: 'category_id') final  int categoryId;
 @override final  String? source;
 @override final  String? destination;
 @override@JsonKey() final  double costs;
@@ -245,18 +245,18 @@ _$SubscriptionUpdateCopyWith<_SubscriptionUpdate> get copyWith => __$Subscriptio
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionUpdate&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.category, category) || other.category == category)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.active, active) || other.active == active)&&(identical(other.recurrence, recurrence) || other.recurrence == recurrence));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionUpdate&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.label, label) || other.label == label)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.source, source) || other.source == source)&&(identical(other.destination, destination) || other.destination == destination)&&(identical(other.costs, costs) || other.costs == costs)&&(identical(other.active, active) || other.active == active)&&(identical(other.recurrence, recurrence) || other.recurrence == recurrence));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,startDate,label,amount,category,source,destination,costs,active,recurrence);
+    return Object.hash(runtimeType,id,startDate,label,amount,categoryId,source,destination,costs,active,recurrence);
 }
 
 @override
 String toString() {
-    return 'SubscriptionUpdate(id: $id, startDate: $startDate, label: $label, amount: $amount, category: $category, source: $source, destination: $destination, costs: $costs, active: $active, recurrence: $recurrence)';
+    return 'SubscriptionUpdate(id: $id, startDate: $startDate, label: $label, amount: $amount, categoryId: $categoryId, source: $source, destination: $destination, costs: $costs, active: $active, recurrence: $recurrence)';
 }
 
 
@@ -267,7 +267,7 @@ abstract mixin class _$SubscriptionUpdateCopyWith<$Res> implements $Subscription
   factory _$SubscriptionUpdateCopyWith(_SubscriptionUpdate value, $Res Function(_SubscriptionUpdate) _then) = __$SubscriptionUpdateCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'start_date') DateTime startDate, String label, double amount, String category, String? source, String? destination, double costs, bool active, String recurrence
+ int id,@JsonKey(name: 'start_date') DateTime startDate, String label, double amount,@JsonKey(name: 'category_id') int categoryId, String? source, String? destination, double costs, bool active, String recurrence
 });
 
 
@@ -284,14 +284,14 @@ class __$SubscriptionUpdateCopyWithImpl<$Res>
 
 /// Create a copy of SubscriptionUpdate
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startDate = null,Object? label = null,Object? amount = null,Object? category = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? active = null,Object? recurrence = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startDate = null,Object? label = null,Object? amount = null,Object? categoryId = null,Object? source = freezed,Object? destination = freezed,Object? costs = null,Object? active = null,Object? recurrence = null,}) {
   return _then(_SubscriptionUpdate(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as String,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as double,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,source: freezed == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as String?,destination: freezed == destination ? _self.destination : destination // ignore: cast_nullable_to_non_nullable
 as String?,costs: null == costs ? _self.costs : costs // ignore: cast_nullable_to_non_nullable
 as double,active: null == active ? _self.active : active // ignore: cast_nullable_to_non_nullable

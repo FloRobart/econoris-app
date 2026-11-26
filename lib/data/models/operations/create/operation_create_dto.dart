@@ -9,7 +9,7 @@ abstract class OperationCreateDto with _$OperationCreateDto {
     @JsonKey(name: 'levy_date') required String levyDate,
     required String label,
     required double amount,
-    required String category,
+    @JsonKey(name: 'category_id') required int categoryId,
     @JsonKey(name: 'is_validate') @Default(true) bool isValidate,
   }) = _OperationCreateDto;
 

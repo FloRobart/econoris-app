@@ -1,11 +1,15 @@
+import 'package:econoris_app/domain/models/categories/category_catalog.dart';
 import 'package:econoris_app/domain/models/subscriptions/subscription.dart';
 import 'package:econoris_app/ui/core/themes/theme.dart';
+import 'package:econoris_app/ui/core/ui/categories/category_display.dart';
+import 'package:econoris_app/ui/core/ui/categories/view_models/category_viewmodel.dart';
 import 'package:econoris_app/ui/core/ui/utils/format_amount.dart';
 import 'package:econoris_app/ui/core/ui/utils/format_date.dart';
 import 'package:econoris_app/ui/subscriptions/view_models/subscription_form_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SubscriptionDetails extends StatelessWidget {
+class SubscriptionDetails extends ConsumerWidget {
   const SubscriptionDetails({
     super.key,
     required this.subscription,
@@ -18,8 +22,10 @@ class SubscriptionDetails extends StatelessWidget {
   final Future<void> Function(Subscription subscription) onEditSubscription;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final CategoryCatalog categoryCatalog =
+        ref.watch(categoryViewModelProvider).value ?? CategoryCatalog.empty();
     final String subscriptionDate =
         formatDate(
           subscription.lastGeneratedAt,
@@ -103,7 +109,13 @@ class SubscriptionDetails extends StatelessWidget {
               label: 'Montant',
               value: formatAmount(subscription.amount),
             ),
-            detailRow(label: 'Catégorie', value: subscription.category),
+            detailRow(
+              label: 'Catégorie',
+              value: categoryFullLabelOf(
+                categoryCatalog,
+                subscription.categoryId,
+              ),
+            ),
             detailRow(label: 'Source', value: subscription.source ?? '-'),
             detailRow(
               label: 'Destination',

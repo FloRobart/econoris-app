@@ -10,7 +10,7 @@ extension SubscriptionCreateMapper on SubscriptionCreate {
       startDate: startDate.toIso8601String(),
       label: label,
       amount: amount,
-      category: category,
+      categoryId: categoryId,
       active: active,
       intervalValue: interval.$1,
       intervalUnit: interval.$2,

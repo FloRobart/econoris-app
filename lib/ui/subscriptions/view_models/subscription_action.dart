@@ -119,7 +119,7 @@ class SubscriptionAction {
         startDate: subscriptionUpdate.startDate,
         label: subscriptionUpdate.label,
         amount: subscriptionUpdate.amount,
-        category: subscriptionUpdate.category,
+        categoryId: subscriptionUpdate.categoryId,
         source: subscriptionUpdate.source,
         destination: subscriptionUpdate.destination,
         costs: subscriptionUpdate.costs,
