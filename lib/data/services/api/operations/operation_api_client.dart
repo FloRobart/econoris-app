@@ -17,14 +17,24 @@ class OperationApiClient {
 
   static final String _baseUrl = '${AppConfig.dataUrl}/operations';
 
-  /// Get the list of operations for the current user.
+  /// Get the operations of the current user whose levy day is in the period.
+  /// Both bounds are optional and included, as days "yyyy-MM-dd": without them, every operation is returned.
   /// The server is expected to return a list of operations if the JWT is valid.
-  Future<List<Map<String, dynamic>>> getOperations() async {
+  Future<List<Map<String, dynamic>>> getOperations({
+    String? startDate,
+    String? endDate,
+  }) async {
     final response = await apiClient.request(
       HttpMethod.get,
       _baseUrl,
       authenticated: true,
+      queryParameters: {'start_date': ?startDate, 'end_date': ?endDate},
     );
+
+    /* A period without operation is answered without content: its empty body is not JSON */
+    if (response.statusCode == 204) {
+      return [];
+    }
 
     final dynamic rawData = response.data;
 
@@ -46,6 +56,27 @@ class OperationApiClient {
     throw FormatException(
       'Unexpected operations payload type: ${rawData.runtimeType}',
     );
+  }
+
+  /// Get the levy day of the oldest operation of the current user, as "yyyy-MM-dd".
+  /// The server answers without content when the user has no operation.
+  Future<String?> getOldestOperationDate() async {
+    final response = await apiClient.request(
+      HttpMethod.get,
+      '$_baseUrl/oldest-date',
+      authenticated: true,
+    );
+
+    if (response.statusCode == 204) {
+      return null;
+    }
+
+    final dynamic rawData = response.data;
+    final Map<String, dynamic> oldestOperationDate = rawData is String
+        ? Map<String, dynamic>.from(jsonDecode(rawData) as Map)
+        : Map<String, dynamic>.from(rawData as Map);
+
+    return oldestOperationDate['oldest_levy_date'] as String;
   }
 
   /// Add a new operation.

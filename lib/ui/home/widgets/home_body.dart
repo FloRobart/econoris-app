@@ -1,9 +1,10 @@
-import 'package:econoris_app/domain/models/operations/operation.dart';
 import 'package:econoris_app/ui/core/themes/theme.dart';
+import 'package:econoris_app/ui/core/ui/operations/widgets/load_older_operations_button.dart';
 import 'package:econoris_app/ui/core/ui/operations/widgets/operation_management_index.dart';
 import 'package:econoris_app/ui/core/ui/operations/widgets/operation_monthly_stats.dart';
 import 'package:econoris_app/ui/core/ui/operations/widgets/operations_list.dart';
 import 'package:econoris_app/ui/home/view_models/home_body_viewmodel.dart';
+import 'package:econoris_app/ui/operations/view_models/loaded_operations.dart';
 import 'package:econoris_app/ui/operations/view_models/operation_action.dart';
 import 'package:econoris_app/ui/operations/view_models/operation_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class HomeBody extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final AsyncValue<List<Operation>> asyncOperations = ref.watch(
+    final AsyncValue<LoadedOperations> asyncOperations = ref.watch(
       operationViewModelProvider,
     );
 
@@ -77,8 +78,10 @@ class HomeBody extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: asyncOperations.when(
-            data: (operations) {
-              HomeBodyViewmodel homeViewmodel = HomeBodyViewmodel(operations);
+            data: (loadedOperations) {
+              HomeBodyViewmodel homeViewmodel = HomeBodyViewmodel(
+                loadedOperations.operations,
+              );
               return OperationsList(
                 operations: homeViewmodel.upComingOperations,
                 operationAction: operationAction,
@@ -127,8 +130,10 @@ class HomeBody extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: asyncOperations.when(
-            data: (operations) {
-              HomeBodyViewmodel homeViewmodel = HomeBodyViewmodel(operations);
+            data: (loadedOperations) {
+              HomeBodyViewmodel homeViewmodel = HomeBodyViewmodel(
+                loadedOperations.operations,
+              );
               return OperationsList(
                 operations: homeViewmodel.pastOperations,
                 operationAction: operationAction,
@@ -142,6 +147,9 @@ class HomeBody extends ConsumerWidget {
             loading: () => const Center(child: CircularProgressIndicator()),
           ),
         ),
+
+        /* Only the most recent months are loaded at start: the older ones on demand */
+        const LoadOlderOperationsButton(),
 
         const SizedBox(height: 96),
       ],

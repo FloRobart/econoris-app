@@ -7,6 +7,10 @@ class Constantes {
   /* Seuils et paramètres utilisés pour la détection des salaires dans les opérations. */
   static const int salaryWindowSafetyMarginDays = 4;
 
+  /* The operations are loaded by pages of this number of calendar months, from the most recent ones:
+     the application never waits for the whole history to start */
+  static const int operationsPageMonthsCount = 3;
+
   /* Clés utilisées pour la sauvegarde du brouillon de création d'opération dans les SharedPreferences. */
   static const draftOperationAmountKey = 'draft_operation_amount_key';
   static const draftOperationLabelKey = 'draft_operation_label_key';
@@ -33,6 +37,11 @@ class Constantes {
 
   /* Code of the salary category, which starts a financial month (see FinancialDate) */
   static const String salaryCategoryCode = 'income_salary';
+
+  /* Shortest and longest financial month, in days: the salaries closer together than the shortest month
+     belong to the same pay, and a next salary out of these bounds does not end the financial month */
+  static const int minimumFinancialMonthDays = 22;
+  static const int maximumFinancialMonthDays = 38;
 
   /* Codes of the categories of the money that is moved but not spent: the money management index
      leaves out the expenses of these categories and of their sub-categories */
