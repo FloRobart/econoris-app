@@ -38,6 +38,11 @@ class Constantes {
   /* Code of the salary category, which starts a financial month (see FinancialDate) */
   static const String salaryCategoryCode = 'income_salary';
 
+  /* Shortest and longest financial month, in days: the salaries closer together than the shortest month
+     belong to the same pay, and a next salary out of these bounds does not end the financial month */
+  static const int minimumFinancialMonthDays = 22;
+  static const int maximumFinancialMonthDays = 38;
+
   /* Codes of the categories of the money that is moved but not spent: the money management index
      leaves out the expenses of these categories and of their sub-categories */
   static const Set<String> unavailableMoneyManagementCategoryCodes = {
