@@ -91,6 +91,7 @@ class OperationStatsViewModel {
 
     final startMonthDate = financialDate.startDate;
     final endMonthDate = financialDate.endDate;
+    final nextMonthStartDate = financialDate.nextStartDate;
 
     double operationsAmount = 0;
     int operationsCount = 0;
@@ -106,7 +107,7 @@ class OperationStatsViewModel {
 
     for (final operation in operations) {
       if (operation.levyDate.isBefore(startMonthDate) ||
-          !operation.levyDate.isBefore(endMonthDate)) {
+          !operation.levyDate.isBefore(nextMonthStartDate)) {
         continue;
       }
 
@@ -168,7 +169,7 @@ class FinancialDate {
     this._categoryCatalog,
   ) {
     _startDate = _resolveFinancialMonthStartDate(operations, monthOffset);
-    _endDate = _resolveFinancialMonthEndDate(
+    _nextStartDate = _resolveNextFinancialMonthStartDate(
       operations,
       monthOffset,
       _startDate!,
@@ -179,10 +180,15 @@ class FinancialDate {
   final CategoryCatalog _categoryCatalog;
 
   DateTime? _startDate;
-  DateTime? _endDate;
+  DateTime? _nextStartDate;
 
   DateTime get startDate => _startDate ?? DateTime.now();
-  DateTime get endDate => _endDate ?? DateTime.now();
+
+  /// The start of the next financial month: the operations of this month are before it.
+  DateTime get nextStartDate => _nextStartDate ?? DateTime.now();
+
+  /// The last day of the financial month, as displayed.
+  DateTime get endDate => nextStartDate.subtract(const Duration(days: 1));
 
   DateTime _resolveFinancialMonthStartDate(
     List<Operation> operations,
@@ -214,44 +220,59 @@ class FinancialDate {
       return DateTime(now.year, now.month + monthOffset);
     }
 
-    /// On calcule le montant moyen des opérations positives dans la fenêtre de recherche pour filtrer les opérations candidates au salaire.
-    /// En effet, on considère que le salaire est une opération positive qui a un montant supérieur ou égal au montant moyen des opérations positives dans la fenêtre de recherche.
-    final averageSalaryAmount =
-        positiveOperationsInWindow
-            .map((operation) => operation.amount)
-            .reduce((a, b) => a + b) /
-        positiveOperationsInWindow.length;
-
-    /// On filtre les opérations pour ne garder que celles qui ont un montant supérieur ou égal au montant moyen des opérations positives dans la fenêtre de recherche.
-    final minAmountForSalaryCandidate =
+    /* A salary much smaller than the others (a regularization, an advance) does not start a financial month.
+       No comparison with the average: around payday the window holds two monthly salaries, and the smaller one would be left out */
+    final minimumSalaryCandidateAmount =
         positiveOperationsInWindow
             .map((operation) => operation.amount)
             .reduce((a, b) => a > b ? a : b) /
         3;
 
     final salaryCandidates = positiveOperationsInWindow
-        .where(
-          (operation) =>
-              operation.amount >= minAmountForSalaryCandidate &&
-              operation.amount >= averageSalaryAmount,
-        )
+        .where((operation) => operation.amount >= minimumSalaryCandidateAmount)
         .toList();
 
-    /// Si aucune opération ne correspond au critère de montant, on retourne la date théorique du début du mois financier.
-    if (salaryCandidates.isEmpty) {
+    /* The window goes a few days past its reference day, which is today for the current month:
+       the salaries after that day are still to come */
+    final firstSalaryOfLastPay = _findFirstSalaryOfLastPay(
+      salaryCandidates,
+      receivedBefore: DateTime(now.year, now.month + monthOffset, now.day + 1),
+    );
+
+    /* No salary received yet: a financial month does not start on a salary still to come */
+    if (firstSalaryOfLastPay == null) {
       return DateTime(now.year, now.month + monthOffset);
     }
 
-    /// On considère que la date de début du mois financier est la date de l'opération candidate au salaire la moins récente.
-    final operationWithMaxAmount = salaryCandidates.reduce(
-      (a, b) => a.levyDate.isBefore(b.levyDate) ? a : b,
-    );
-
-    return operationWithMaxAmount.levyDate;
+    return firstSalaryOfLastPay.levyDate;
   }
 
-  /// Détermine la date de fin du mois financier en se basant sur la date de début du mois financier et en cherchant la date de début du mois financier suivant. Si la date de début du mois financier suivant est trop proche ou trop éloignée de la date de début du mois financier actuel, on considère que la date de fin du mois financier actuel est la date de début du mois financier actuel plus 1 mois.
-  DateTime _resolveFinancialMonthEndDate(
+  /// Finds the salary that starts the financial month: the first salary of the last pay received before [receivedBefore].
+  /// A pay can come in several salaries a few days apart: the salaries received less than the shortest financial month
+  /// before the last one belong to its pay. [salaryCandidatesByDate] go from the least recent to the most recent.
+  Operation? _findFirstSalaryOfLastPay(
+    List<Operation> salaryCandidatesByDate, {
+    required DateTime receivedBefore,
+  }) {
+    final receivedSalaries = salaryCandidatesByDate
+        .where((salary) => salary.levyDate.isBefore(receivedBefore))
+        .toList();
+    if (receivedSalaries.isEmpty) {
+      return null;
+    }
+
+    final lastReceivedSalaryDate = receivedSalaries.last.levyDate;
+
+    return receivedSalaries.firstWhere(
+      (salary) =>
+          lastReceivedSalaryDate.difference(salary.levyDate).inDays <
+          Constantes.minimumFinancialMonthDays,
+    );
+  }
+
+  /// Finds the start of the next financial month: the next salary, or one month after the start of this financial month
+  /// when the next salary is too close to it or too far from it.
+  DateTime _resolveNextFinancialMonthStartDate(
     List<Operation> operations,
     int monthOffset,
     DateTime financialMonthStartDate,
@@ -263,9 +284,9 @@ class FinancialDate {
 
     /// Si l'écart entre la date de début du mois financier suivant et la date de début du mois financier actuel est inférieur à 1 mois - 4 jours ou supérieur à 1 mois + 4 jours, on considère que la date de fin du mois financier actuel est la date de début du mois financier actuel plus 1 mois.
     if (startNextFinancialDate.difference(financialMonthStartDate).inDays <
-            22 ||
+            Constantes.minimumFinancialMonthDays ||
         startNextFinancialDate.difference(financialMonthStartDate).inDays >
-            38) {
+            Constantes.maximumFinancialMonthDays) {
       return DateTime(
         financialMonthStartDate.year,
         financialMonthStartDate.month + 1,
@@ -273,6 +294,6 @@ class FinancialDate {
       );
     }
 
-    return startNextFinancialDate.subtract(const Duration(days: 1));
+    return startNextFinancialDate;
   }
 }
