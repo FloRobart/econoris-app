@@ -18,7 +18,11 @@ final operationRepositoryProvider = Provider<OperationRepository>((ref) {
 
 /// Repository interface for operations data.
 abstract class OperationRepository {
-  Future<List<Operation>> getOperations();
+  Future<List<Operation>> getOperations({
+    DateTime? startDate,
+    DateTime? endDate,
+  });
+  Future<DateTime?> getOldestOperationDate();
   Future<Operation> addOperation(OperationCreate body);
   Future<Operation> updateOperation(int id, Operation body);
   Future<Operation> deleteOperation(int id);

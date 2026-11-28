@@ -19,9 +19,21 @@ class OperationUseCase {
   /*=====*/
   /* GET */
   /*=====*/
-  /// Fetches a list of operations from the repository.
-  Future<List<Operation>> getOperations() {
-    return operationRepository.getOperations();
+  /// Fetches the operations whose levy day is between [startDate] and [endDate], both included.
+  /// Without one of its bounds, the period has no start or no end.
+  Future<List<Operation>> getOperations({
+    DateTime? startDate,
+    DateTime? endDate,
+  }) {
+    return operationRepository.getOperations(
+      startDate: startDate,
+      endDate: endDate,
+    );
+  }
+
+  /// Fetches the levy day of the oldest operation of the user, null if the user has none.
+  Future<DateTime?> getOldestOperationDate() {
+    return operationRepository.getOldestOperationDate();
   }
 
   /*======*/
