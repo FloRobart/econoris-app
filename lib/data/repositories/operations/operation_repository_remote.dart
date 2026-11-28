@@ -8,12 +8,24 @@ class OperationRepositoryRemote {
 
   final OperationApiClient operationApiClient;
 
-  /// Fetches a list of operations from the remote API.
-  Future<List<OperationDto>> getOperations() async {
-    final operationsDtoList = await operationApiClient.getOperations();
+  /// Fetches the operations of the period from the remote API.
+  /// Both bounds are optional and included, as days "yyyy-MM-dd".
+  Future<List<OperationDto>> getOperations({
+    String? startDate,
+    String? endDate,
+  }) async {
+    final operationsDtoList = await operationApiClient.getOperations(
+      startDate: startDate,
+      endDate: endDate,
+    );
     return operationsDtoList
         .map((operation) => OperationDto.fromJson(operation))
         .toList();
+  }
+
+  /// Fetches the levy day of the oldest operation from the remote API, as "yyyy-MM-dd".
+  Future<String?> getOldestOperationDate() {
+    return operationApiClient.getOldestOperationDate();
   }
 
   /// Adds a new operation to the remote API.

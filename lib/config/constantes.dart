@@ -7,6 +7,10 @@ class Constantes {
   /* Seuils et paramètres utilisés pour la détection des salaires dans les opérations. */
   static const int salaryWindowSafetyMarginDays = 4;
 
+  /* The operations are loaded by pages of this number of calendar months, from the most recent ones:
+     the application never waits for the whole history to start */
+  static const int operationsPageMonthsCount = 3;
+
   /* Clés utilisées pour la sauvegarde du brouillon de création d'opération dans les SharedPreferences. */
   static const draftOperationAmountKey = 'draft_operation_amount_key';
   static const draftOperationLabelKey = 'draft_operation_label_key';

@@ -1,7 +1,7 @@
 import 'package:econoris_app/domain/models/categories/category_catalog.dart';
-import 'package:econoris_app/domain/models/operations/operation.dart';
 import 'package:econoris_app/ui/core/ui/categories/view_models/category_viewmodel.dart';
 import 'package:econoris_app/ui/core/ui/forms/category_field.dart';
+import 'package:econoris_app/ui/operations/view_models/loaded_operations.dart';
 import 'package:econoris_app/ui/operations/view_models/operation_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +18,7 @@ class _TestCategoryViewModel extends CategoryViewModel {
 /// Gives no operation, so that the picker suggests nothing.
 class _TestOperationViewModel extends OperationViewModel {
   @override
-  Future<List<Operation>> build() async => const [];
+  Future<LoadedOperations> build() async => LoadedOperations.empty();
 }
 
 void main() {

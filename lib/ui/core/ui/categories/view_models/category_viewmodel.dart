@@ -42,7 +42,8 @@ final suggestedCategoryIdsProvider = Provider.family<List<int>, bool>((
   isExpense,
 ) {
   final operations =
-      ref.watch(operationViewModelProvider).value ?? const <Operation>[];
+      ref.watch(operationViewModelProvider).value?.operations ??
+      const <Operation>[];
 
   final usageCountByCategoryId = <int, int>{};
   for (final operation in operations) {

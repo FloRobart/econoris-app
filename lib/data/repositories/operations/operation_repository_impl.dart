@@ -16,12 +16,19 @@ class OperationRepositoryImpl implements OperationRepository {
 
   OperationRepositoryImpl({required this.remote, required this.local});
 
-  /// Fetches a list of operations from the remote API.
+  /// Fetches the operations whose levy day is in the period from the remote API.
+  /// Both bounds are optional and included.
   @override
-  Future<List<Operation>> getOperations() async {
+  Future<List<Operation>> getOperations({
+    DateTime? startDate,
+    DateTime? endDate,
+  }) async {
     List<OperationDto> operationsDtoList = [];
     try {
-      operationsDtoList = await remote.getOperations();
+      operationsDtoList = await remote.getOperations(
+        startDate: _formatApiDay(startDate),
+        endDate: _formatApiDay(endDate),
+      );
       // local.saveOperations(operationsDtoList);
     } catch (_) {
       // operationsDtoList = await local.getOperations();
@@ -32,6 +39,15 @@ class OperationRepositoryImpl implements OperationRepository {
         .map((operationDto) => operationDto.toDomain())
         .toList()
       ..sort(operationSort);
+  }
+
+  /// Fetches the levy day of the oldest operation from the remote API, null if the user has no operation.
+  @override
+  Future<DateTime?> getOldestOperationDate() async {
+    final oldestOperationDay = await remote.getOldestOperationDate();
+    if (oldestOperationDay == null) return null;
+
+    return DateTime.parse(oldestOperationDay);
   }
 
   /// Adds a new operation to the remote API.
@@ -70,5 +86,14 @@ class OperationRepositoryImpl implements OperationRepository {
     } catch (_) {
       rethrow;
     }
+  }
+
+  /// Formats a day the way the API reads it, "yyyy-MM-dd", whatever the locale of the device.
+  static String? _formatApiDay(DateTime? day) {
+    if (day == null) return null;
+
+    final month = day.month.toString().padLeft(2, '0');
+    final dayOfMonth = day.day.toString().padLeft(2, '0');
+    return '${day.year}-$month-$dayOfMonth';
   }
 }
