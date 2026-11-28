@@ -2,6 +2,7 @@ import 'package:econoris_app/config/constantes.dart';
 import 'package:econoris_app/domain/models/categories/category_catalog.dart';
 import 'package:econoris_app/domain/models/operations/operation.dart';
 import 'package:econoris_app/ui/core/ui/categories/view_models/category_viewmodel.dart';
+import 'package:econoris_app/ui/core/ui/operations/view_models/financial_month_search_window.dart';
 import 'package:econoris_app/ui/operations/view_models/month_change_card_viewmodel.dart';
 import 'package:econoris_app/ui/operations/view_models/operation_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,9 +20,19 @@ final operationStatsProvider = Provider<AsyncValue<OperationStatsViewModel>>((
   final categoryCatalog =
       ref.watch(categoryViewModelProvider).value ?? CategoryCatalog.empty();
 
+  /* The statistics of a month whose older operations are still loading would be wrong */
+  final isShownMonthLoaded =
+      asyncOperations.value?.isLoadedSince(
+        FinancialMonthSearchWindow(monthOffset).start,
+      ) ??
+      true;
+  if (!isShownMonthLoaded) {
+    return const AsyncLoading();
+  }
+
   return asyncOperations.whenData(
-    (operations) => OperationStatsViewModel.fromOperations(
-      operations,
+    (loadedOperations) => OperationStatsViewModel.fromOperations(
+      loadedOperations.operations,
       monthOffset,
       categoryCatalog,
     ),
@@ -180,18 +191,7 @@ class FinancialDate {
     final now = DateTime.now();
 
     /// On définit une fenêtre de recherche autour de la date théorique du début du mois financier pour trouver la date réelle de début du mois financier.
-    final windowStart = DateTime(
-      now.year,
-      now.month + monthOffset - 1,
-      now.day,
-    ).subtract(const Duration(days: Constantes.salaryWindowSafetyMarginDays));
-
-    /// On définit la date de fin de la fenêtre de recherche. En réalité, on cherche la date de début du mois financier suivant à laquelle on soustrait un jour pour trouver la date de fin du mois financier actuel.
-    final windowEnd = DateTime(
-      now.year,
-      now.month + monthOffset,
-      now.day,
-    ).add(const Duration(days: Constantes.salaryWindowSafetyMarginDays));
+    final searchWindow = FinancialMonthSearchWindow(monthOffset);
 
     /// On filtre les opérations pour ne garder que celles qui sont dans la fenêtre de recherche, qui sont positives et de catégorie "Salaire". Ensuite, on trie ces opérations par date pour trouver la plus récente.
     final positiveOperationsInWindow =
@@ -199,8 +199,8 @@ class FinancialDate {
             .where(
               (operation) =>
                   operation.amount > 0 &&
-                  operation.levyDate.isAfter(windowStart) &&
-                  operation.levyDate.isBefore(windowEnd) &&
+                  operation.levyDate.isAfter(searchWindow.start) &&
+                  operation.levyDate.isBefore(searchWindow.end) &&
                   _categoryCatalog.hasCode(
                     operation.categoryId,
                     Constantes.salaryCategoryCode,
